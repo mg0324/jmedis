@@ -1,4 +1,4 @@
-package org.mango.jmedis.core;
+package org.mango.jmedis.core.netty;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -8,20 +8,23 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import lombok.extern.slf4j.Slf4j;
-
+import org.mango.jmedis.core.IServer;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
-public class NettyServer {
+public class NettyServer implements IServer {
 
 	// 保存客户端连接的通道引用
-	public static Map<String,SocketChannel> _scMap_ = null;
+	private Map<String,SocketChannel> _scMap_ = null;
+	private EventLoopGroup boss,worker;
 
+	public NettyServer(){
+		boss = new NioEventLoopGroup(1);
+		worker = new NioEventLoopGroup(1);
+	}
 
-	public static void start(int port){
-		EventLoopGroup boss = new NioEventLoopGroup(1);
-		EventLoopGroup worker = new NioEventLoopGroup(4);
+	public void start(int port){
 		_scMap_ = new ConcurrentHashMap<>();
 		ServerBootstrap bootstrap = new ServerBootstrap();
 		// 添加boss和worker组
@@ -42,10 +45,13 @@ public class NettyServer {
 			f.channel().closeFuture().sync();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}finally {
-			boss.shutdownGracefully();
-			worker.shutdownGracefully();
 		}
+	}
+
+	@Override
+	public void stop() {
+		boss.shutdownGracefully();
+		worker.shutdownGracefully();
 	}
 
 }

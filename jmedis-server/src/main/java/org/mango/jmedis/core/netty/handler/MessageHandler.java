@@ -1,4 +1,4 @@
-package org.mango.jmedis.handler;
+package org.mango.jmedis.core.netty.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;

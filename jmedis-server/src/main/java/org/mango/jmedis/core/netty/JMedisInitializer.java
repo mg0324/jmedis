@@ -1,4 +1,4 @@
-package org.mango.jmedis.core;
+package org.mango.jmedis.core.netty;
 
 
 import io.netty.channel.ChannelInitializer;
@@ -6,7 +6,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
-import org.mango.jmedis.handler.MessageHandler;
+import org.mango.jmedis.core.netty.handler.MessageHandler;
 
 import java.nio.charset.Charset;
 
