@@ -23,4 +23,13 @@ public class JMedisConstant {
      * 有命令答复事件
      */
     public final static String EVENT_COMMAND_RESPONSE = "3";
+    /**
+     * 换行
+     */
+    public final static String BR = "\r\n";
+
+    /**
+     * 命令ping
+     */
+    public final static String CMD_PING = "PING";
 }

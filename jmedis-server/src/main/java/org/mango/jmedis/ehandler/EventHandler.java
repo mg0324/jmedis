@@ -1,6 +1,6 @@
-package org.mango.jmedis.core.ehandler;
+package org.mango.jmedis.ehandler;
 
-import org.mango.jmedis.core.server.IServer;
+import org.mango.jmedis.server.IServer;
 
 import java.io.IOException;
 import java.nio.channels.SocketChannel;
@@ -12,5 +12,6 @@ import java.nio.channels.SocketChannel;
  */
 public interface EventHandler {
      default void handle(IServer server) throws IOException{}
-     default void handle(SocketChannel socketChannel) throws IOException {}
+     default void handle(IServer server,SocketChannel socketChannel) throws IOException {}
+     default void handle(SocketChannel socketChannel,String msg) throws IOException {}
 }

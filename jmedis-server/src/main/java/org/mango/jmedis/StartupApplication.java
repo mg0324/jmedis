@@ -1,7 +1,7 @@
 package org.mango.jmedis;
 import lombok.extern.slf4j.Slf4j;
-import org.mango.jmedis.core.server.IServer;
-import org.mango.jmedis.core.server.nio.NioServer;
+import org.mango.jmedis.server.IServer;
+import org.mango.jmedis.server.nio.NioServer;
 
 @Slf4j
 public class StartupApplication {

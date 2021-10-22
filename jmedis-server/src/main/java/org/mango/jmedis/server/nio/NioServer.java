@@ -1,13 +1,12 @@
-package org.mango.jmedis.core.server.nio;
+package org.mango.jmedis.server.nio;
 
 import lombok.extern.slf4j.Slf4j;
 import org.mango.jmedis.constant.JMedisConstant;
-import org.mango.jmedis.core.ehandler.AcceptEventHandler;
-import org.mango.jmedis.core.ehandler.CommandRequestHandler;
-import org.mango.jmedis.core.ehandler.CommandResponseHandler;
-import org.mango.jmedis.core.ehandler.EventHandler;
-import org.mango.jmedis.core.server.IServer;
-
+import org.mango.jmedis.ehandler.AcceptEventHandler;
+import org.mango.jmedis.ehandler.CommandRequestHandler;
+import org.mango.jmedis.ehandler.CommandResponseHandler;
+import org.mango.jmedis.ehandler.EventHandler;
+import org.mango.jmedis.server.IServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.SelectionKey;
@@ -21,6 +20,7 @@ import java.util.Set;
 
 @Slf4j
 public class NioServer implements IServer {
+    private boolean isAlive = true;
     // 监听端口
     private int port;
     // 多路复用器
@@ -30,6 +30,11 @@ public class NioServer implements IServer {
     // 事件处理器注册map
     private Map<String, EventHandler> eventHandlerMap;
 
+    /**
+     * 初始化nio server
+     * @param port
+     * @throws IOException
+     */
     private void init(int port) throws IOException {
         this.port = port;
         //创建选择器
@@ -42,6 +47,7 @@ public class NioServer implements IServer {
         eventHandlerMap.put(JMedisConstant.EVENT_COMMAND_REQUEST,new CommandRequestHandler());
         eventHandlerMap.put(JMedisConstant.EVENT_COMMAND_RESPONSE,new CommandResponseHandler());
     }
+
     @Override
     public void start(int port) {
         try {
@@ -54,7 +60,7 @@ public class NioServer implements IServer {
             this.server.configureBlocking(false);
             //监听客户端连接请求
             this.server.register(selector, SelectionKey.OP_ACCEPT);
-            while(true){
+            while(isAlive){
                 //阻塞方法，轮询注册的channel,当至少一个channel就绪的时候才会继续往下执行
                 selector.select();// 阻塞
                 //获取就绪的SelectionKey
@@ -100,12 +106,17 @@ public class NioServer implements IServer {
         if(key.isAcceptable()){
             eventHandlerMap.get(JMedisConstant.EVENT_ACCEPT).handle(this);
         }else if(key.isReadable()){
-            eventHandlerMap.get(JMedisConstant.EVENT_COMMAND_REQUEST).handle((SocketChannel) key.channel());
+            eventHandlerMap.get(JMedisConstant.EVENT_COMMAND_REQUEST).handle(this,(SocketChannel) key.channel());
         }
+    }
+    @Override
+    public void render(SocketChannel socketChannel,String msg) throws IOException {
+        eventHandlerMap.get(JMedisConstant.EVENT_COMMAND_RESPONSE).handle(socketChannel,msg);
     }
 
     @Override
     public void stop() throws IOException {
+        this.isAlive = false;
         if(selector.isOpen()){
             selector.close();
         }
