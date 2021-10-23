@@ -1,5 +1,6 @@
 package org.mango.jmedis.command.tip;
 
+import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.command.BaseCmd;
 import org.mango.jmedis.response.CmdResponse;
 
@@ -10,7 +11,7 @@ import org.mango.jmedis.response.CmdResponse;
  */
 public class PingCmd extends BaseCmd<String> {
     @Override
-    public CmdResponse<String> execute(int index,String[] param) {
+    public CmdResponse<String> execute(JMedisClient client, String[] param) {
         return this.renderUseEmpty("PONG");
     }
 }

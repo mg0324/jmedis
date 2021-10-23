@@ -1,8 +1,6 @@
 package org.mango.jmedis.memory;
 
 import org.mango.jmedis.datatype.IType;
-import org.mango.jmedis.datatype.SDS;
-import org.mango.jmedis.memory.local.JMedisString;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,24 +20,19 @@ public class DB {
 
     /**
      * 存储数据到dbMap中
-     * @param dataType 数据类型
+     * @param key key
      * @param typeImpl 数据
      */
-    public void put(String dataType,IType typeImpl){
-        dbMap.put(dataType,typeImpl);
+    public void put(String key,IType typeImpl){
+        dbMap.put(key,typeImpl);
     }
 
     /**
-     *
-     * @param dataType
-     * @param keySds
+     * 通过key获取数据
+     * @param key key
      * @return
      */
-    public SDS get(String dataType, SDS keySds) {
-        JMedisString str = (JMedisString) dbMap.get(dataType);
-        if(null == str){
-            return null;
-        }
-        return str.getValue(keySds);
+    public IType get(String key) {
+        return dbMap.get(key);
     }
 }

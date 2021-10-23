@@ -2,6 +2,7 @@ package org.mango.jmedis.command;
 
 import org.mango.jmedis.constant.JMedisConstant;
 import org.mango.jmedis.response.CmdResponse;
+import org.mango.jmedis.util.StringUtil;
 
 /**
  * @Description 基础命令
@@ -18,7 +19,7 @@ public abstract class BaseCmd<T> implements ICmd<T> {
     protected CmdResponse<String> renderUseError(String data){
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_ERROR);
-        response.setResult(wrapBr(data));
+        response.setResult(StringUtil.wrapBr(data));
         return response;
     }
 
@@ -30,7 +31,7 @@ public abstract class BaseCmd<T> implements ICmd<T> {
     protected CmdResponse<String> renderUseEmpty(String data){
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_EMPTY);
-        response.setResult(wrapBr(data));
+        response.setResult(StringUtil.wrapBr(data));
         return response;
     }
 
@@ -42,7 +43,7 @@ public abstract class BaseCmd<T> implements ICmd<T> {
     protected CmdResponse<String> renderUseString(String data){
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_STRING);
-        response.setResult(wrapBr(data));
+        response.setResult(StringUtil.wrapBr(data));
         return response;
     }
 
@@ -53,7 +54,7 @@ public abstract class BaseCmd<T> implements ICmd<T> {
     protected CmdResponse<String> renderOk(){
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_EMPTY);
-        response.setResult(wrapBr("OK"));
+        response.setResult(StringUtil.wrapBr("OK"));
         return response;
     }
 
@@ -76,18 +77,11 @@ public abstract class BaseCmd<T> implements ICmd<T> {
     protected CmdResponse<String> renderUseNull(){
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_NULL);
-        response.setResult(wrapBr(""));
+        response.setResult(StringUtil.wrapBr(""));
         return response;
     }
 
-    /**
-     * 加上换行符
-     * @param data 数据
-     * @return
-     */
-    private String wrapBr(String data){
-        return data + JMedisConstant.BR;
-    }
+
 
 
 }

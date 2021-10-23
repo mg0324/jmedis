@@ -38,6 +38,11 @@ public class JMedisConstant {
     public final static String CMD_GET = "GET";
 
     /**
+     * 命令select
+     */
+    public final static String CMD_SELECT = "SELECT";
+
+    /**
      * 命令响应 error类型
      */
     public final static String RESPONSE_ERROR = "error";

@@ -5,7 +5,6 @@ import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.command.CmdExecutor;
 import org.mango.jmedis.config.ServerConf;
 import org.mango.jmedis.response.CmdResponse;
-import org.mango.jmedis.constant.JMedisConstant;
 import org.mango.jmedis.response.ResponseFormatter;
 import org.mango.jmedis.server.IServer;
 import java.io.IOException;

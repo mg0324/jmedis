@@ -7,4 +7,5 @@ java版自实现redis
 3. 加入db=16 下标支持
 4. 实现set命令
 5. 实现get命令
+6. 实现select命令
 

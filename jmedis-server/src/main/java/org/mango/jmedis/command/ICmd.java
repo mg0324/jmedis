@@ -1,5 +1,6 @@
 package org.mango.jmedis.command;
 
+import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.response.CmdResponse;
 
 /**
@@ -10,9 +11,9 @@ import org.mango.jmedis.response.CmdResponse;
 public interface ICmd<T> {
     /**
      * 命令执行
-     * @param index 数据库下标
+     * @param client 客户端
      * @param param 命令参数
      * @return 返回结果
      */
-    CmdResponse<T> execute(int index,String[] param);
+    CmdResponse<T> execute(JMedisClient client, String[] param);
 }

@@ -6,4 +6,5 @@ package org.mango.jmedis.datatype;
  * @Created by mango
  */
 public interface IType {
+    String typeName();
 }

@@ -4,8 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.command.string.GetCmd;
 import org.mango.jmedis.command.string.SetCmd;
+import org.mango.jmedis.command.support.SelectCmd;
 import org.mango.jmedis.command.tip.PingCmd;
 import org.mango.jmedis.constant.JMedisConstant;
+import org.mango.jmedis.enums.ErrorEnum;
 import org.mango.jmedis.response.CmdResponse;
 import org.mango.jmedis.util.StringUtil;
 
@@ -29,6 +31,8 @@ public class CmdExecutor {
         cmdMap.put(JMedisConstant.CMD_PING, new PingCmd());
         cmdMap.put(JMedisConstant.CMD_SET, new SetCmd());
         cmdMap.put(JMedisConstant.CMD_GET, new GetCmd());
+
+        cmdMap.put(JMedisConstant.CMD_SELECT, new SelectCmd());
     }
 
     /**
@@ -45,9 +49,10 @@ public class CmdExecutor {
             ICmd cmd = cmdMap.get(cmdType.toUpperCase());
             if (null == cmd) {
                 log.warn("command[{}] not support!", cmdType);
+                return returnUnknown();
             } else {
                 // 执行并得到结果
-                return cmd.execute(client.getDbIndex(),oneStartArr(arr));
+                return cmd.execute(client,oneStartArr(arr));
             }
         }
         return null;
@@ -64,5 +69,16 @@ public class CmdExecutor {
             result[i-1] = arr[i];
         }
         return result;
+    }
+
+    /**
+     * 返回未知命令
+     * @return
+     */
+    private CmdResponse<String> returnUnknown(){
+        CmdResponse<String> response = new CmdResponse<>();
+        response.setType(JMedisConstant.RESPONSE_ERROR);
+        response.setResult(StringUtil.wrapBr(ErrorEnum.UNKNOWN_CMD.getMsg()));
+        return response;
     }
 }

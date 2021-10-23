@@ -2,8 +2,10 @@ package org.mango.jmedis.memory;
 
 import org.mango.jmedis.config.ServerConf;
 import org.mango.jmedis.constant.DataTypeConstant;
+import org.mango.jmedis.datatype.IType;
 import org.mango.jmedis.datatype.SDS;
 import org.mango.jmedis.memory.local.JMedisString;
+import org.mango.jmedis.server.nio.JmedisServer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,16 +36,20 @@ public class Memory {
      */
     public static void storeString(int index,SDS key,SDS value){
         JMedisString str = new JMedisString(key,value);
-        memory.get(index).put(DataTypeConstant.STRING,str);
+        memory.get(index).put(key.getString(),str);
     }
 
     /**
      * 查询string数据
      * @param index 数据库下标
-     * @param keySds key
+     * @param key key
      * @return valueSds
      */
-    public static SDS getString(int index, SDS keySds) {
-        return memory.get(index).get(DataTypeConstant.STRING,keySds);
+    public static SDS getString(int index, String key) {
+        JMedisString str = (JMedisString) memory.get(index).get(key);
+        if(str == null){
+            return null;
+        }
+        return str.getValue();
     }
 }
