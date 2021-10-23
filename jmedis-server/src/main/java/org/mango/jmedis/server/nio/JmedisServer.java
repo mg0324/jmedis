@@ -1,6 +1,7 @@
 package org.mango.jmedis.server.nio;
 
 import lombok.extern.slf4j.Slf4j;
+import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.constant.JMedisConstant;
 import org.mango.jmedis.ehandler.AcceptEventHandler;
 import org.mango.jmedis.ehandler.CommandRequestHandler;
@@ -19,7 +20,8 @@ import java.util.Map;
 import java.util.Set;
 
 @Slf4j
-public class NioServer implements IServer {
+public class JmedisServer implements IServer {
+
     private boolean isAlive = true;
     // 监听端口
     private int port;
@@ -29,6 +31,8 @@ public class NioServer implements IServer {
     private ServerSocketChannel server;
     // 事件处理器注册map
     private Map<String, EventHandler> eventHandlerMap;
+    // 客户端map
+    private Map<String, JMedisClient> clientMap;
 
     /**
      * 初始化nio server
@@ -46,6 +50,8 @@ public class NioServer implements IServer {
         eventHandlerMap.put(JMedisConstant.EVENT_ACCEPT,new AcceptEventHandler());
         eventHandlerMap.put(JMedisConstant.EVENT_COMMAND_REQUEST,new CommandRequestHandler());
         eventHandlerMap.put(JMedisConstant.EVENT_COMMAND_RESPONSE,new CommandResponseHandler());
+        // 创建clientMap
+        this.clientMap = new HashMap<>();
     }
 
     @Override
@@ -106,12 +112,26 @@ public class NioServer implements IServer {
         if(key.isAcceptable()){
             eventHandlerMap.get(JMedisConstant.EVENT_ACCEPT).handle(this);
         }else if(key.isReadable()){
-            eventHandlerMap.get(JMedisConstant.EVENT_COMMAND_REQUEST).handle(this,(SocketChannel) key.channel());
+            SocketChannel socketChannel = (SocketChannel) key.channel();
+            String clientKey = socketChannel.getRemoteAddress().toString();
+            JMedisClient client = clientMap.get(clientKey);
+            eventHandlerMap.get(JMedisConstant.EVENT_COMMAND_REQUEST).handle(this,client);
         }
     }
     @Override
-    public void render(SocketChannel socketChannel,String msg) throws IOException {
-        eventHandlerMap.get(JMedisConstant.EVENT_COMMAND_RESPONSE).handle(socketChannel,msg);
+    public void render(JMedisClient client, String msg) throws IOException {
+        eventHandlerMap.get(JMedisConstant.EVENT_COMMAND_RESPONSE).handle(client,msg);
+    }
+
+    @Override
+    public void addClient( JMedisClient client) throws IOException {
+        String key = client.getConn().getRemoteAddress().toString();
+        clientMap.put(key,client);
+    }
+
+    @Override
+    public JMedisClient getClient(String key) {
+        return clientMap.get(key);
     }
 
     @Override

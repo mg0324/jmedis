@@ -1,17 +1,16 @@
 package org.mango.jmedis.command.tip;
 
 import org.mango.jmedis.command.BaseCmd;
-import org.mango.jmedis.command.ICmd;
-import org.mango.jmedis.constant.JMedisConstant;
+import org.mango.jmedis.response.CmdResponse;
 
 /**
  * @Description ping cmd实现
  * @Date 2021-10-22 23:22
  * @Created by mango
  */
-public class PingCmd extends BaseCmd implements ICmd {
+public class PingCmd extends BaseCmd<String> {
     @Override
-    public String execute(String[] param) {
-        return "PONG" + JMedisConstant.BR;
+    public CmdResponse<String> execute(int index,String[] param) {
+        return this.renderUseEmpty("PONG");
     }
 }

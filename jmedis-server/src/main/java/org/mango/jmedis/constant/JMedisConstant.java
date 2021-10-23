@@ -6,10 +6,6 @@ package org.mango.jmedis.constant;
  * @Created by mango
  */
 public class JMedisConstant {
-    /**
-     * 缓冲区大小，默认4M
-     */
-    public final static int BUFFER_SIZE = 4 * 1024;
 
     /**
      * 有客户端连接事件
@@ -32,4 +28,38 @@ public class JMedisConstant {
      * 命令ping
      */
     public final static String CMD_PING = "PING";
+    /**
+     * 命令set
+     */
+    public final static String CMD_SET = "SET";
+    /**
+     * 命令get
+     */
+    public final static String CMD_GET = "GET";
+
+    /**
+     * 命令响应 error类型
+     */
+    public final static String RESPONSE_ERROR = "error";
+    /**
+     * 命令响应 空类型
+     */
+    public final static String RESPONSE_EMPTY = "";
+    /**
+     * 命令响应 null类型
+     */
+    public final static String RESPONSE_NULL = "null";
+    /**
+     * 命令响应 string类型
+     */
+    public final static String RESPONSE_STRING = "string";
+    /**
+     * 命令响应 integer类型
+     */
+    public final static String RESPONSE_INTEGER = "integer";
+
+    /**
+     * 命令响应 list类型
+     */
+    public final static String RESPONSE_LIST = "list";
 }

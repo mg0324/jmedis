@@ -1,8 +1,8 @@
 package org.mango.jmedis.ehandler;
 
 import lombok.extern.slf4j.Slf4j;
+import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.server.IServer;
-
 import java.io.IOException;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
@@ -24,5 +24,8 @@ public class AcceptEventHandler implements EventHandler {
         //将连接注册到多路复用器上监听读事件
         socketChannel.register(server.getSelector(), SelectionKey.OP_READ);
         log.debug("accept client is {}",socketChannel.getRemoteAddress());
+        // 保存客户端到服务器对象的clientMap
+        JMedisClient client = new JMedisClient(socketChannel);
+        server.addClient(client);
     }
 }

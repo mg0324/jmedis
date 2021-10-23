@@ -1,9 +1,9 @@
 package org.mango.jmedis.ehandler;
 
+import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.server.IServer;
 
 import java.io.IOException;
-import java.nio.channels.SocketChannel;
 
 /**
  * @Description 事件处理器接口
@@ -11,7 +11,26 @@ import java.nio.channels.SocketChannel;
  * @Created by mango
  */
 public interface EventHandler {
+     /**
+      * 接收服务器连接
+      * @param server 服务器
+      * @throws IOException
+      */
      default void handle(IServer server) throws IOException{}
-     default void handle(IServer server,SocketChannel socketChannel) throws IOException {}
-     default void handle(SocketChannel socketChannel,String msg) throws IOException {}
+
+     /**
+      * 处理读请求
+      * @param server 服务器
+      * @param client
+      * @throws IOException
+      */
+     default void handle(IServer server,JMedisClient client) throws IOException {}
+
+     /**
+      * 处理写请求
+      * @param client 客户端
+      * @param msg 数据
+      * @throws IOException
+      */
+     default void handle(JMedisClient client, String msg) throws IOException {}
 }
