@@ -49,7 +49,7 @@ public class CmdExecutor {
             ICmd cmd = cmdMap.get(cmdType.toUpperCase());
             if (null == cmd) {
                 log.warn("command[{}] not support!", cmdType);
-                return returnUnknown();
+                return returnUnknown(cmdType);
             } else {
                 // 执行并得到结果
                 return cmd.execute(client,oneStartArr(arr));
@@ -75,10 +75,12 @@ public class CmdExecutor {
      * 返回未知命令
      * @return
      */
-    private CmdResponse<String> returnUnknown(){
+    private CmdResponse<String> returnUnknown(String cmd){
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_ERROR);
-        response.setResult(StringUtil.wrapBr(ErrorEnum.UNKNOWN_CMD.getMsg()));
+        String msg = ErrorEnum.UNKNOWN_CMD.getMsg()
+                + "`"+cmd+"`, with args beginning with:";
+        response.setResult(StringUtil.wrapBr(msg));
         return response;
     }
 }
