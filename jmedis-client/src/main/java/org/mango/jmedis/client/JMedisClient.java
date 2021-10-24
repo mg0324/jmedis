@@ -75,6 +75,7 @@ public class JMedisClient {
             if("exit".equals(cmd)){
                 isAlive = false;
                 this.close();
+                return ;
             }
             ByteBuffer data = ByteBuffer.wrap(cmd.getBytes(StandardCharsets.UTF_8));
             // 发送数据
@@ -97,7 +98,7 @@ public class JMedisClient {
             return false;
         }
         String data = new String(buff.array(),0,size, StandardCharsets.UTF_8);
-        ClientUtil.println(data);
+        ClientUtil.print(data);
         // 客户端根据服务端返回成功，如果是以(error)开头则失败
         if(data.startsWith("(error)")){
             return false;

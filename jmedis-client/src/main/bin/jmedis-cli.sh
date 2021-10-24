@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-java -jar jmedis-client.jar $0 $1 $2 $3 $4 $5 $6 $7 $8 $9 $10
+java -jar jmedis-client.jar $1 $2 $3 $4 $5 $6 $7 $8 $9

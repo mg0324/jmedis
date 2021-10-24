@@ -36,6 +36,14 @@ public class ClientUtil {
      * 返回数据给控制台
      * @param data
      */
+    public static void print(String data){
+        System.out.print(data);
+    }
+
+    /**
+     * 返回数据给控制台
+     * @param data
+     */
     public static void println(String data){
         System.out.println(data);
     }

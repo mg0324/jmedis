@@ -19,6 +19,6 @@ public class VersionHandler extends Handler {
 
     @Override
     public void doHandle(CommandLine cmdLine) {
-        ClientUtil.println(ClientConf.VERSION);
+        ClientUtil.println(ClientConf.PROGRAM_NAME + " " + ClientConf.VERSION);
     }
 }

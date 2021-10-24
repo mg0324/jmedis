@@ -14,7 +14,7 @@ import org.mango.jmedis.util.StringUtil;
  * @Created by mango
  */
 public class MainHandler extends Handler {
-
+    // 客户端
     private JMedisClient client;
 
     @Override
