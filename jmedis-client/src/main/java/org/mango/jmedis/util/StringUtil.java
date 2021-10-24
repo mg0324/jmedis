@@ -1,7 +1,5 @@
 package org.mango.jmedis.util;
 
-import org.mango.jmedis.constant.JMedisConstant;
-
 /**
  * @Description 字符串工具
  * @Date 2021-10-22 23:29
@@ -21,12 +19,4 @@ public class StringUtil {
         }
     }
 
-    /**
-     * 加上换行符
-     * @param data 数据
-     * @return
-     */
-    public static String wrapBr(String data){
-        return data + JMedisConstant.BR;
-    }
 }

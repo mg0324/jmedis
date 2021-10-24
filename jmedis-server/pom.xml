@@ -6,11 +6,10 @@
   <parent>
     <groupId>org.mango</groupId>
     <artifactId>jmedis</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1</version>
   </parent>
   <groupId>org.mango</groupId>
   <artifactId>jmedis-server</artifactId>
-  <version>1.0-SNAPSHOT-netty</version>
 
   <name>jmedis-server</name>
   <packaging>jar</packaging>
