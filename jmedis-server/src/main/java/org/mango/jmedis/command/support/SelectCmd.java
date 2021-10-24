@@ -2,6 +2,7 @@ package org.mango.jmedis.command.support;
 
 import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.command.BaseCmd;
+import org.mango.jmedis.constant.JMedisConstant;
 import org.mango.jmedis.enums.ErrorEnum;
 import org.mango.jmedis.response.CmdResponse;
 
@@ -24,7 +25,11 @@ public class SelectCmd extends BaseCmd<String> {
             }
         }else{
             //错误的参数个数
-            return this.renderUseError(ErrorEnum.PARAM_WRONG_NUMBER.getMsg());
+            return this.errorWrongNumber();
         }
+    }
+    @Override
+    public String name() {
+        return JMedisConstant.CMD_SELECT;
     }
 }

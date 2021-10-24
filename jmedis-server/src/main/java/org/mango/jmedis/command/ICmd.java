@@ -16,4 +16,6 @@ public interface ICmd<T> {
      * @return 返回结果
      */
     CmdResponse<T> execute(JMedisClient client, String[] param);
+
+    String name();
 }

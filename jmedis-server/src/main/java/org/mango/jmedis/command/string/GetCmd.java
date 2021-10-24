@@ -2,6 +2,7 @@ package org.mango.jmedis.command.string;
 
 import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.command.BaseCmd;
+import org.mango.jmedis.constant.JMedisConstant;
 import org.mango.jmedis.datatype.SDS;
 import org.mango.jmedis.enums.ErrorEnum;
 import org.mango.jmedis.memory.Memory;
@@ -31,7 +32,12 @@ public class GetCmd extends BaseCmd<String> {
             return this.renderUseString(value.getString());
         }else{
             //错误的参数个数
-            return this.renderUseError(ErrorEnum.PARAM_WRONG_NUMBER.getMsg());
+            return this.errorWrongNumber();
         }
+    }
+
+    @Override
+    public String name() {
+        return JMedisConstant.CMD_GET;
     }
 }

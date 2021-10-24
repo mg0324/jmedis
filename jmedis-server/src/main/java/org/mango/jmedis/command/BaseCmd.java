@@ -1,6 +1,7 @@
 package org.mango.jmedis.command;
 
 import org.mango.jmedis.constant.JMedisConstant;
+import org.mango.jmedis.enums.ErrorEnum;
 import org.mango.jmedis.response.CmdResponse;
 import org.mango.jmedis.util.StringUtil;
 
@@ -10,6 +11,17 @@ import org.mango.jmedis.util.StringUtil;
  * @Created by mango
  */
 public abstract class BaseCmd<T> implements ICmd<T> {
+
+    /**
+     * 返回参数个数不正确
+     * @return
+     */
+    protected CmdResponse<String> errorWrongNumber(){
+        //for 'keys' command
+        String msg = ErrorEnum.PARAM_WRONG_NUMBER.getMsg()
+                + "for '"+this.name().toLowerCase()+"' command";
+        return this.renderUseError(msg);
+    }
 
     /**
      * 以错误类型返回数据
