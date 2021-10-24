@@ -37,6 +37,6 @@ public class GetCmd extends BaseCmd<String> {
 
     @Override
     public boolean expect(String[] param) {
-        return param.length == 1 ? true : false;
+        return this.sizeEq(param,1);
     }
 }

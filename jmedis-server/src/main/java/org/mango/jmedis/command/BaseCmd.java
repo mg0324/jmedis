@@ -6,6 +6,8 @@ import org.mango.jmedis.enums.ErrorEnum;
 import org.mango.jmedis.response.CmdResponse;
 import org.mango.jmedis.util.StringUtil;
 
+import java.util.List;
+
 /**
  * @Description 基础命令
  * @Date 2021-10-22 23:23
@@ -37,6 +39,25 @@ public abstract class BaseCmd<T> implements ICmd<T> {
         return null;
     }
 
+    /**
+     * 参数格式相等判断
+     * @param param 参数
+     * @param size 判断值
+     * @return 相等则true
+     */
+    protected boolean sizeEq(String[] param,int size){
+        return param.length == size ? true : false;
+    }
+
+    /**
+     * 参数格式小于等于判断
+     * @param param 参数
+     * @param size 判断值
+     * @return
+     */
+    protected boolean sizeLe(String[] param,int size){
+        return param.length <= size ? true : false;
+    }
     /**
      * 返回参数个数不正确
      * @return
@@ -81,6 +102,18 @@ public abstract class BaseCmd<T> implements ICmd<T> {
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_STRING);
         response.setResult(StringUtil.wrapBr(data));
+        return response;
+    }
+
+    /**
+     * 以list类型返回数据
+     * @param list 数据
+     * @return
+     */
+    protected CmdResponse<List> renderUseList(List<String> list){
+        CmdResponse<List> response = new CmdResponse<>();
+        response.setType(JMedisConstant.RESPONSE_LIST);
+        response.setResult(list);
         return response;
     }
 

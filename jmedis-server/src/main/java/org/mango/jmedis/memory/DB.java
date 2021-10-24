@@ -3,7 +3,9 @@ package org.mango.jmedis.memory;
 import org.mango.jmedis.datatype.IType;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @Description 数据库内存
@@ -34,5 +36,13 @@ public class DB {
      */
     public IType get(String key) {
         return dbMap.get(key);
+    }
+
+    /**
+     * 获取数据库的keys
+     * @return
+     */
+    public Set<String> keys() {
+        return dbMap.keySet();
     }
 }

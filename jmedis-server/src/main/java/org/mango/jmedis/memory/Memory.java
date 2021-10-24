@@ -8,7 +8,9 @@ import org.mango.jmedis.memory.local.JMedisString;
 import org.mango.jmedis.server.nio.JmedisServer;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @Description 内存区
@@ -51,5 +53,14 @@ public class Memory {
             return null;
         }
         return str.getValue();
+    }
+
+    /**
+     * 获取下标index对应数据库的所有键值
+     * @param index
+     * @return
+     */
+    public static Set<String> getAllKeys(int index){
+        return memory.get(index).keys();
     }
 }

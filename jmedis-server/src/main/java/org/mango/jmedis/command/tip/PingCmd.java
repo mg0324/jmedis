@@ -28,6 +28,7 @@ public class PingCmd extends BaseCmd<String> {
 
     @Override
     public boolean expect(String[] param) {
-        return param.length <= 1 ? true : false;
+        // <=1
+        return this.sizeLe(param,1);
     }
 }

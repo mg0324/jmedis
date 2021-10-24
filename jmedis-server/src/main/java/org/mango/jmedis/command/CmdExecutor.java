@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.command.string.GetCmd;
 import org.mango.jmedis.command.string.SetCmd;
+import org.mango.jmedis.command.support.KeysCmd;
 import org.mango.jmedis.command.support.SelectCmd;
 import org.mango.jmedis.command.tip.PingCmd;
 import org.mango.jmedis.constant.JMedisConstant;
@@ -33,6 +34,7 @@ public class CmdExecutor {
         cmdMap.put(JMedisConstant.CMD_GET, new GetCmd());
 
         cmdMap.put(JMedisConstant.CMD_SELECT, new SelectCmd());
+        cmdMap.put(JMedisConstant.CMD_KEYS, new KeysCmd());
     }
 
     /**

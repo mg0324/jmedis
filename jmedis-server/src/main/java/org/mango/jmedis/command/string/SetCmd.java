@@ -37,6 +37,6 @@ public class SetCmd extends BaseCmd<String> {
 
     @Override
     public boolean expect(String[] param) {
-        return param.length == 2 ? true : false;
+        return this.sizeEq(param,2);
     }
 }

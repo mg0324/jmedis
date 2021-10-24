@@ -10,5 +10,6 @@ java版自实现redis
 5. 实现get命令
 6. 实现select命令
 7. 基于模板方法设计模式，抽象封装命令的校验
+8. 实现keys命令
 
 ## jmedis-client

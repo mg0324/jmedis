@@ -41,6 +41,10 @@ public class JMedisConstant {
      * 命令select
      */
     public final static String CMD_SELECT = "SELECT";
+    /**
+     * 命令keys
+     */
+    public final static String CMD_KEYS = "KEYS";
 
     /**
      * 命令响应 error类型
