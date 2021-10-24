@@ -17,6 +17,7 @@ public enum ErrorEnum {
     // 参数个数错误
     PARAM_WRONG_NUMBER("2000","ERR wrong number of arguments"),
     PARAM_WRONG_TYPE("2001","ERR param type wrong"),
+    PARAM_WRONG_RANGE("2002","ERR param range wrong"),
     // 语法错误syntax
     SYNTA_WRONG("3000","ERR syntax error"),
 

@@ -4,7 +4,6 @@ import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.command.BaseCmd;
 import org.mango.jmedis.constant.JMedisConstant;
 import org.mango.jmedis.response.CmdResponse;
-import org.mango.jmedis.util.StringUtil;
 
 /**
  * @Description ping cmd实现
@@ -18,14 +17,17 @@ public class PingCmd extends BaseCmd<String> {
             return this.renderUseEmpty("PONG");
         }else if(param.length == 1){
             return this.renderUseEmpty(param[0]);
-        }else{
-            //错误的参数个数
-            return this.errorWrongNumber();
         }
+        return null;
     }
 
     @Override
     public String name() {
         return JMedisConstant.CMD_PING;
+    }
+
+    @Override
+    public boolean expect(String[] param) {
+        return param.length <= 1 ? true : false;
     }
 }

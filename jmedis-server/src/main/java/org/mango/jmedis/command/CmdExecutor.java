@@ -51,8 +51,8 @@ public class CmdExecutor {
                 log.warn("command[{}] not support!", cmdType);
                 return returnUnknown(cmdType);
             } else {
-                // 执行并得到结果
-                return cmd.execute(client,oneStartArr(arr));
+                // 分发命令并得到结果
+                return cmd.dispatch(client,oneStartArr(arr));
             }
         }
         return null;

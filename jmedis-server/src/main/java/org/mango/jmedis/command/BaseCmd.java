@@ -1,5 +1,6 @@
 package org.mango.jmedis.command;
 
+import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.constant.JMedisConstant;
 import org.mango.jmedis.enums.ErrorEnum;
 import org.mango.jmedis.response.CmdResponse;
@@ -11,6 +12,30 @@ import org.mango.jmedis.util.StringUtil;
  * @Created by mango
  */
 public abstract class BaseCmd<T> implements ICmd<T> {
+
+    // 模板方法
+    @Override
+    public CmdResponse<T> dispatch(JMedisClient client, String[] param) {
+        // 先校验参数个数
+        if(expect(param)){
+            // 再校验参数数据
+            CmdResponse<T> validateResponse = validate(client,param);
+            if(validateResponse == null) {
+                return this.execute(client, param);
+            }else{
+                return validateResponse;
+            }
+        }else{
+            //错误的参数个数
+            return (CmdResponse<T>) this.errorWrongNumber();
+        }
+    }
+
+    @Override
+    public CmdResponse<T> validate(JMedisClient client, String[] param) {
+        // 默认不校验参数数据，设置为通过
+        return null;
+    }
 
     /**
      * 返回参数个数不正确
