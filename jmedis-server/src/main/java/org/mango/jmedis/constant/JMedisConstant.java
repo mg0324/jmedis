@@ -45,6 +45,10 @@ public class JMedisConstant {
      * 命令keys
      */
     public final static String CMD_KEYS = "KEYS";
+    /**
+     * 命令keys
+     */
+    public final static String CMD_EXIT = "EXIT";
 
     /**
      * 命令响应 error类型

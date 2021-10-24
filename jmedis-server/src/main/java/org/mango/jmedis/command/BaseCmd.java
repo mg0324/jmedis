@@ -65,7 +65,7 @@ public abstract class BaseCmd<T> implements ICmd<T> {
     protected CmdResponse<String> errorWrongNumber(){
         //for 'keys' command
         String msg = ErrorEnum.PARAM_WRONG_NUMBER.getMsg()
-                + "for '"+this.name().toLowerCase()+"' command";
+                + " for '"+this.name().toLowerCase()+"' command";
         return this.renderUseError(msg);
     }
 

@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.command.string.GetCmd;
 import org.mango.jmedis.command.string.SetCmd;
+import org.mango.jmedis.command.support.ExitCmd;
 import org.mango.jmedis.command.support.KeysCmd;
 import org.mango.jmedis.command.support.SelectCmd;
 import org.mango.jmedis.command.tip.PingCmd;
@@ -35,6 +36,7 @@ public class CmdExecutor {
 
         cmdMap.put(JMedisConstant.CMD_SELECT, new SelectCmd());
         cmdMap.put(JMedisConstant.CMD_KEYS, new KeysCmd());
+        cmdMap.put(JMedisConstant.CMD_EXIT, new ExitCmd());
     }
 
     /**
@@ -81,7 +83,7 @@ public class CmdExecutor {
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_ERROR);
         String msg = ErrorEnum.UNKNOWN_CMD.getMsg()
-                + "`"+cmd+"`, with args beginning with:";
+                + " `"+cmd+"`, with args beginning with:";
         response.setResult(StringUtil.wrapBr(msg));
         return response;
     }
