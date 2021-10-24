@@ -14,3 +14,7 @@ java版自实现redis
 9. 实现exit命令
 
 ## jmedis-client
+1. 基于apache commons cli框架实现java cmd程序
+2. 基于socketChannel阻塞模式，实现jmedis client客户端
+3. 使用责任链模式处理客户端参数
+4. 使用责任链模式处理客户端到服务端命令执行
