@@ -1,10 +1,12 @@
 package org.mango.jmedis.command.connection;
 
-import lombok.extern.slf4j.Slf4j;
 import org.mango.jmedis.annotation.Cmd;
 import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.command.BaseCmd;
 import org.mango.jmedis.response.CmdResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 
 /**
@@ -13,8 +15,8 @@ import java.io.IOException;
  * @Created by mango
  */
 @Cmd
-@Slf4j
 public class ExitCmd extends BaseCmd<String> {
+    private Logger log = LoggerFactory.getLogger(this.getClass());
     @Override
     public CmdResponse<String> execute(JMedisClient client, String[] param) {
         String clientKey = "";

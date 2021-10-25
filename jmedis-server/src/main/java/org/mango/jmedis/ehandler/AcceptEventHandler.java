@@ -1,8 +1,10 @@
 package org.mango.jmedis.ehandler;
 
-import lombok.extern.slf4j.Slf4j;
 import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.server.IServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
@@ -12,8 +14,8 @@ import java.nio.channels.SocketChannel;
  * @Date 2021-10-21 23:22
  * @Created by mango
  */
-@Slf4j
 public class AcceptEventHandler implements EventHandler {
+    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public void handle(IServer server) throws IOException {

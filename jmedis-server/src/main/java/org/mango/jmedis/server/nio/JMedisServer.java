@@ -1,6 +1,5 @@
 package org.mango.jmedis.server.nio;
 
-import lombok.extern.slf4j.Slf4j;
 import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.constant.JMedisConstant;
 import org.mango.jmedis.ehandler.AcceptEventHandler;
@@ -8,6 +7,8 @@ import org.mango.jmedis.ehandler.CommandRequestHandler;
 import org.mango.jmedis.ehandler.CommandResponseHandler;
 import org.mango.jmedis.ehandler.EventHandler;
 import org.mango.jmedis.server.IServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.SelectionKey;
@@ -19,8 +20,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-@Slf4j
-public class JmedisServer implements IServer {
+public class JMedisServer implements IServer {
+    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     private boolean isAlive = true;
     // 监听端口

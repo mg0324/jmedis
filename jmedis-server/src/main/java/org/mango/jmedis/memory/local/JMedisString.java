@@ -1,6 +1,5 @@
 package org.mango.jmedis.memory.local;
 
-import lombok.Getter;
 import org.mango.jmedis.constant.DataTypeConstant;
 import org.mango.jmedis.datatype.IType;
 import org.mango.jmedis.datatype.SDS;
@@ -10,7 +9,6 @@ import org.mango.jmedis.datatype.SDS;
  * @Date 2021-10-23 15:14
  * @Created by mango
  */
-@Getter
 public class JMedisString implements IType {
 
     private SDS key;
@@ -24,5 +22,13 @@ public class JMedisString implements IType {
     @Override
     public String typeName() {
         return DataTypeConstant.STRING;
+    }
+
+    public SDS getKey() {
+        return key;
+    }
+
+    public SDS getValue() {
+        return value;
     }
 }

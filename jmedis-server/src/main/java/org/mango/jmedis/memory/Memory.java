@@ -1,14 +1,10 @@
 package org.mango.jmedis.memory;
 
 import org.mango.jmedis.config.ServerConf;
-import org.mango.jmedis.constant.DataTypeConstant;
-import org.mango.jmedis.datatype.IType;
 import org.mango.jmedis.datatype.SDS;
 import org.mango.jmedis.memory.local.JMedisString;
-import org.mango.jmedis.server.nio.JmedisServer;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 

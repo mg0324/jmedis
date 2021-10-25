@@ -12,7 +12,9 @@ java版自实现redis
 7. 基于模板方法设计模式，抽象封装命令的校验
 8. 实现keys命令
 9. 实现exit命令
-10. 优化命令注册代码，基于`reflections`加`@Cmd`注解实现自动注册
+10. ~~优化命令注册代码，基于`reflections`加`@Cmd`注解实现自动注册~~
+11. 去掉`reflections`框架，利用反射代码解析`@Cmd`实现自动注册，减小服务端程序jar包容量
+12. 只引入`logback`做日志框架，去掉`lombok`,缩小服务端程序大小到842K
 
 ## jmedis-client
 1. 基于apache commons cli框架实现java cmd程序

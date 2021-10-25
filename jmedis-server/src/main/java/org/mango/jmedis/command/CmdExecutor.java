@@ -1,27 +1,25 @@
 package org.mango.jmedis.command;
 
-import lombok.extern.slf4j.Slf4j;
 import org.mango.jmedis.annotation.Cmd;
 import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.constant.JMedisConstant;
 import org.mango.jmedis.enums.ErrorEnum;
 import org.mango.jmedis.response.CmdResponse;
+import org.mango.jmedis.util.ClassUtil;
 import org.mango.jmedis.util.StringUtil;
-import org.reflections.Reflections;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.lang.annotation.Annotation;
+import java.util.*;
 
 /**
  * @Description 命令执行器
  * @Date 2021-10-23 10:59
  * @Created by mango
  */
-@Slf4j
 public class CmdExecutor {
+    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     // 命令接口注册map
     private Map<String, ICmd> cmdMap;
@@ -35,15 +33,18 @@ public class CmdExecutor {
     // 通过注解@Cmd注册命令
     private void registerCmdMap() {
         try {
-            Reflections f = new Reflections(this.getClass().getPackage().getName());
-            Set<Class<?>> set = f.getTypesAnnotatedWith(Cmd.class);
-            for (Class<?> c : set) {
-                ICmd bean = (ICmd) c.newInstance();
-                String cmd = StringUtil.getNoCmdClassName(c.getSimpleName());
-                cmdMap.put(cmd,bean);
+            List<Class<?>> cmdClassList = ClassUtil.getClasses(this.getClass().getPackage().getName());
+            List<String> cmdList = new ArrayList<>();
+            for(Class e : cmdClassList){
+                Annotation[] annos = e.getAnnotationsByType(Cmd.class);
+                if(annos.length>0) {
+                    ICmd bean = (ICmd) e.newInstance();
+                    String cmd = StringUtil.getNoCmdClassName(e.getSimpleName());
+                    cmdMap.put(cmd, bean);
+                    cmdList.add(e.getSimpleName());
+                }
             }
-            Set<String> cmdSet = set.stream().map(Class::getSimpleName).collect(Collectors.toSet());
-            log.info("register cmd {} success",cmdSet);
+            log.info("register cmd {} success",cmdList);
         }catch (Exception e){
             log.error("init cmd map error:{}",e.getMessage(),e);
         }

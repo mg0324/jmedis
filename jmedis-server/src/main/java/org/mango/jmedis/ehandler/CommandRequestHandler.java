@@ -1,12 +1,14 @@
 package org.mango.jmedis.ehandler;
 
-import lombok.extern.slf4j.Slf4j;
 import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.command.CmdExecutor;
 import org.mango.jmedis.config.ServerConf;
 import org.mango.jmedis.response.CmdResponse;
 import org.mango.jmedis.response.ResponseFormatter;
 import org.mango.jmedis.server.IServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -17,8 +19,8 @@ import java.util.Objects;
  * @Date 2021-10-21 23:24
  * @Created by mango
  */
-@Slf4j
-public class CommandRequestHandler implements EventHandler{
+public class CommandRequestHandler implements EventHandler {
+    private Logger log = LoggerFactory.getLogger(this.getClass());
     // 服务器连接
     private IServer server;
     // 响应格式化器
