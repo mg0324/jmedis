@@ -12,6 +12,7 @@ java版自实现redis
 7. 基于模板方法设计模式，抽象封装命令的校验
 8. 实现keys命令
 9. 实现exit命令
+10. 优化命令注册代码，基于`reflections`加`@Cmd`注解实现自动注册
 
 ## jmedis-client
 1. 基于apache commons cli框架实现java cmd程序

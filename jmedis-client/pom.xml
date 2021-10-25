@@ -23,9 +23,24 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.baulsupp.kolja/jcurses -->
+        <!--<dependency>
+            <groupId>com.baulsupp.kolja</groupId>
+            <artifactId>jcurses</artifactId>
+            <version>0.9.5.3</version>
+        </dependency>-->
     </dependencies>
     <build>
         <finalName>jmedis-client</finalName>
+        <resources>
+            <resource>
+                <directory>lib</directory>
+                <targetPath>/BOOT-INF/lib/</targetPath>
+                <includes>
+                    <include>**/*.jar</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -16,14 +16,15 @@
 
   <dependencies>
     <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-all</artifactId>
-      <version>4.1.52.Final</version>
-    </dependency>
-    <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>1.18.12</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.reflections/reflections -->
+    <dependency>
+      <groupId>org.reflections</groupId>
+      <artifactId>reflections</artifactId>
+      <version>0.9.11</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -49,6 +50,7 @@
   </dependencies>
 
   <build>
+    <finalName>jmedis-server</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

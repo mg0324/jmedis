@@ -42,8 +42,8 @@ public class CommandRequestHandler implements EventHandler{
         ByteBuffer buff = ByteBuffer.allocate(ServerConf.BUFFER_SIZE);
         int size = client.getConn().read(buff);
         if(size == -1){
-            // 异常退出
-            log.debug("client[{}] exception exit",client.getClientKey());
+            // 异常退出或者链接关闭
+            log.debug("client[{}] exit",client.getClientKey());
             client.close();
             return ;
         }

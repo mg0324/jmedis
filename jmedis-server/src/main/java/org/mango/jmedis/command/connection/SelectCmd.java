@@ -1,9 +1,9 @@
-package org.mango.jmedis.command.support;
+package org.mango.jmedis.command.connection;
 
+import org.mango.jmedis.annotation.Cmd;
 import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.command.BaseCmd;
 import org.mango.jmedis.config.ServerConf;
-import org.mango.jmedis.constant.JMedisConstant;
 import org.mango.jmedis.enums.ErrorEnum;
 import org.mango.jmedis.response.CmdResponse;
 
@@ -12,15 +12,12 @@ import org.mango.jmedis.response.CmdResponse;
  * @Date 2021-10-23 22:54
  * @Created by mango
  */
+@Cmd
 public class SelectCmd extends BaseCmd<String> {
     @Override
     public CmdResponse<String> execute(JMedisClient client, String[] param) {
         client.select(Integer.parseInt(param[0]));
         return this.renderOk();
-    }
-    @Override
-    public String name() {
-        return JMedisConstant.CMD_SELECT;
     }
 
     @Override

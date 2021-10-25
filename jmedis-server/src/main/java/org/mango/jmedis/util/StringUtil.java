@@ -29,4 +29,13 @@ public class StringUtil {
     public static String wrapBr(String data){
         return data + JMedisConstant.BR;
     }
+
+    /**
+     * 去掉类名后面的Cmd
+     * @param cmdClassName 类名
+     * @return
+     */
+    public static String getNoCmdClassName(String cmdClassName){
+        return cmdClassName.toUpperCase().replaceAll("CMD","");
+    }
 }

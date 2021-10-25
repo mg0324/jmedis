@@ -15,6 +15,11 @@ import java.util.List;
  */
 public abstract class BaseCmd<T> implements ICmd<T> {
 
+    @Override
+    public String name() {
+        return this.getClass().getSimpleName().toUpperCase().replace("CMD","");
+    }
+
     // 模板方法
     @Override
     public CmdResponse<T> dispatch(JMedisClient client, String[] param) {

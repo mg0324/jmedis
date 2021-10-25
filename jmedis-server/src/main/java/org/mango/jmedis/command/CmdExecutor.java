@@ -1,20 +1,19 @@
 package org.mango.jmedis.command;
 
 import lombok.extern.slf4j.Slf4j;
+import org.mango.jmedis.annotation.Cmd;
 import org.mango.jmedis.client.JMedisClient;
-import org.mango.jmedis.command.string.GetCmd;
-import org.mango.jmedis.command.string.SetCmd;
-import org.mango.jmedis.command.support.ExitCmd;
-import org.mango.jmedis.command.support.KeysCmd;
-import org.mango.jmedis.command.support.SelectCmd;
-import org.mango.jmedis.command.tip.PingCmd;
 import org.mango.jmedis.constant.JMedisConstant;
 import org.mango.jmedis.enums.ErrorEnum;
 import org.mango.jmedis.response.CmdResponse;
 import org.mango.jmedis.util.StringUtil;
+import org.reflections.Reflections;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @Description 命令执行器
@@ -30,13 +29,24 @@ public class CmdExecutor {
     public CmdExecutor(){
         cmdMap = new HashMap<>();
         // 注册命令执行器
-        cmdMap.put(JMedisConstant.CMD_PING, new PingCmd());
-        cmdMap.put(JMedisConstant.CMD_SET, new SetCmd());
-        cmdMap.put(JMedisConstant.CMD_GET, new GetCmd());
+        this.registerCmdMap();
+    }
 
-        cmdMap.put(JMedisConstant.CMD_SELECT, new SelectCmd());
-        cmdMap.put(JMedisConstant.CMD_KEYS, new KeysCmd());
-        cmdMap.put(JMedisConstant.CMD_EXIT, new ExitCmd());
+    // 通过注解@Cmd注册命令
+    private void registerCmdMap() {
+        try {
+            Reflections f = new Reflections(this.getClass().getPackage().getName());
+            Set<Class<?>> set = f.getTypesAnnotatedWith(Cmd.class);
+            for (Class<?> c : set) {
+                ICmd bean = (ICmd) c.newInstance();
+                String cmd = StringUtil.getNoCmdClassName(c.getSimpleName());
+                cmdMap.put(cmd,bean);
+            }
+            Set<String> cmdSet = set.stream().map(Class::getSimpleName).collect(Collectors.toSet());
+            log.info("register cmd {} success",cmdSet);
+        }catch (Exception e){
+            log.error("init cmd map error:{}",e.getMessage(),e);
+        }
     }
 
     /**

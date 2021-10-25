@@ -25,32 +25,6 @@ public class JMedisConstant {
     public final static String BR = "\r\n";
 
     /**
-     * 命令ping
-     */
-    public final static String CMD_PING = "PING";
-    /**
-     * 命令set
-     */
-    public final static String CMD_SET = "SET";
-    /**
-     * 命令get
-     */
-    public final static String CMD_GET = "GET";
-
-    /**
-     * 命令select
-     */
-    public final static String CMD_SELECT = "SELECT";
-    /**
-     * 命令keys
-     */
-    public final static String CMD_KEYS = "KEYS";
-    /**
-     * 命令keys
-     */
-    public final static String CMD_EXIT = "EXIT";
-
-    /**
      * 命令响应 error类型
      */
     public final static String RESPONSE_ERROR = "error";
@@ -65,7 +39,7 @@ public class JMedisConstant {
     /**
      * 命令响应 string类型
      */
-    public final static String RESPONSE_STRING = "string";
+    public final static String RESPONSE_STRING = "strings";
     /**
      * 命令响应 integer类型
      */
