@@ -3,6 +3,7 @@ package org.mango.jmedis.client;
 import org.mango.jmedis.cmdHandler.CmdHandler;
 import org.mango.jmedis.cmdHandler.impl.SelectCmdHandler;
 import org.mango.jmedis.config.ClientConf;
+import org.mango.jmedis.constant.JMedisConstant;
 import org.mango.jmedis.util.ClientUtil;
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -72,7 +73,7 @@ public class JMedisClient {
         while(isAlive){
             ClientUtil.showCmdLine(this);
             String cmd = scanner.nextLine();
-            if("exit".equals(cmd)){
+            if(JMedisConstant.EXIT.equals(cmd)){
                 isAlive = false;
                 this.close();
                 return ;

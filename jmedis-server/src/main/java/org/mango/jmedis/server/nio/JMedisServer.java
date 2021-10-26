@@ -106,17 +106,20 @@ public class JMedisServer implements IServer {
     /**
      * 将事件分发给事件处理器处理
      * @param key
-     * @throws IOException
      */
-    private void process(SelectionKey key) throws IOException {
-        //该channel已就绪，可接收消息
-        if(key.isAcceptable()){
-            eventHandlerMap.get(JMedisConstant.EVENT_ACCEPT).handle(this);
-        }else if(key.isReadable()){
-            SocketChannel socketChannel = (SocketChannel) key.channel();
-            String clientKey = socketChannel.getRemoteAddress().toString();
-            JMedisClient client = clientMap.get(clientKey);
-            eventHandlerMap.get(JMedisConstant.EVENT_COMMAND_REQUEST).handle(this,client);
+    private void process(SelectionKey key){
+        try {
+            //该channel已就绪，可接收消息
+            if (key.isAcceptable()) {
+                eventHandlerMap.get(JMedisConstant.EVENT_ACCEPT).handle(this);
+            } else if (key.isReadable()) {
+                SocketChannel socketChannel = (SocketChannel) key.channel();
+                String clientKey = socketChannel.getRemoteAddress().toString();
+                JMedisClient client = clientMap.get(clientKey);
+                eventHandlerMap.get(JMedisConstant.EVENT_COMMAND_REQUEST).handle(this, client);
+            }
+        }catch (Throwable e){
+            log.error("jmedis process error,{}",e.getMessage(),e);
         }
     }
     @Override
