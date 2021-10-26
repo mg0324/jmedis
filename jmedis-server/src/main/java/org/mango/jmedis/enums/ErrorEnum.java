@@ -15,6 +15,9 @@ public enum ErrorEnum {
     PARAM_WRONG_RANGE("2002", "ERR param range wrong"),
     // 语法错误syntax
     SYNTA_WRONG("3000", "ERR syntax error"),
+    // 认证失败
+    AUTH_WRONG_NEED("4000", "NOAUTH Authentication required"),
+    AUTH_WRONG_PASS("4001", "WRONGPASS invalid password"),
 
     ;
 

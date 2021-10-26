@@ -73,11 +73,6 @@ public class JMedisClient {
         while(isAlive){
             ClientUtil.showCmdLine(this);
             String cmd = scanner.nextLine();
-            if(JMedisConstant.EXIT.equals(cmd)){
-                isAlive = false;
-                this.close();
-                return ;
-            }
             ByteBuffer data = ByteBuffer.wrap(cmd.getBytes(StandardCharsets.UTF_8));
             // 发送数据
             conn.write(data);
@@ -85,6 +80,11 @@ public class JMedisClient {
             if(readData()){
                 // 执行成功后，执行客户端对应命令操作
                 this.cmdHandler.handle(this,cmd);
+            }
+            if(JMedisConstant.QUIT.equals(cmd)){
+                isAlive = false;
+                this.close();
+                return ;
             }
         }
     }

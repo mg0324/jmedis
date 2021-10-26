@@ -1,5 +1,8 @@
 package org.mango.jmedis.client;
 
+import org.mango.jmedis.config.ServerConf;
+import org.mango.jmedis.util.StringUtil;
+
 import java.io.IOException;
 import java.nio.channels.SocketChannel;
 
@@ -13,11 +16,18 @@ public class JMedisClient {
     private SocketChannel conn;
     // 数据库下标
     private int dbIndex;
+    // 通过认证
+    private boolean passAuth = true;
 
     public JMedisClient(SocketChannel conn){
         this.conn = conn;
         // 默认选择下标为0的数据库
         this.dbIndex = 0;
+        // 设置认证标准，如果没有密码则直接认证通过
+        if(StringUtil.isNotBlank(ServerConf.getConf().getAuthPasswd())){
+            // 需要
+            this.passAuth = false;
+        }
     }
 
     /**
@@ -53,6 +63,14 @@ public class JMedisClient {
      */
     public void select(int index){
         this.dbIndex = index;
+    }
+
+    public boolean isPassAuth() {
+        return passAuth;
+    }
+
+    public void setPassAuth(boolean passAuth) {
+        this.passAuth = passAuth;
     }
 
     /**

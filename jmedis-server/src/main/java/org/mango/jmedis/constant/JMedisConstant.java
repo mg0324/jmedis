@@ -39,7 +39,7 @@ public class JMedisConstant {
     /**
      * 命令响应 string类型
      */
-    public final static String RESPONSE_STRING = "strings";
+    public final static String RESPONSE_STRING = "string";
     /**
      * 命令响应 integer类型
      */
@@ -49,4 +49,8 @@ public class JMedisConstant {
      * 命令响应 list类型
      */
     public final static String RESPONSE_LIST = "list";
+    /**
+     * AUTH命令
+     */
+    public final static String CMD_AUTH = "AUTH";
 }

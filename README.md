@@ -1,8 +1,21 @@
 # jmedis
 java版自实现redis
 
-# 实现功能及优化点
-## jmedis-server
+## 快速使用
+### jmedis-server
+进入bin目录，执行如下命令启动服务端
+``` bash
+./jmedis-server.sh jmedis.conf
+```
+
+### jmedis-client
+进入bin目录，执行如下命令启动客户端
+``` bash
+./jmedis-cli.sh -h 192.168.0.1
+```
+
+## 实现功能及优化点
+### jmedis-server
 1. 基于nio实现多路复用器，单线程支持多个客户端
 2. 实现ping pong测试命令
 3. 加入db=16 下标支持
@@ -17,8 +30,9 @@ java版自实现redis
 12. 只引入`logback`做日志框架，去掉`lombok`,缩小服务端程序大小到842K
 13. 优化代码，修复服务器异常退出的问题
 14. 加入配置文件加载功能，有限读取配置文件值，没有则使用程序默认值。
+15. 实现密码认证及auth命令。
 
-## jmedis-client
+### jmedis-client
 1. 基于apache commons cli框架实现java cmd程序
 2. 基于socketChannel阻塞模式，实现jmedis client客户端
 3. 使用责任链模式处理客户端参数

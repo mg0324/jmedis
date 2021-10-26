@@ -9,5 +9,5 @@ public class JMedisConstant {
     /**
      * 退出字符串
      */
-    public static final String EXIT = "exit";
+    public static final String QUIT = "quit";
 }

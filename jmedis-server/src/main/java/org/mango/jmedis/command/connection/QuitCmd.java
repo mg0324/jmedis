@@ -10,12 +10,12 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 /**
- * @Description exit 命令
+ * @Description quit 命令
  * @Date 2021-10-24 22:54
  * @Created by mango
  */
 @Cmd
-public class ExitCmd extends BaseCmd<String> {
+public class QuitCmd extends BaseCmd<String> {
     private Logger log = LoggerFactory.getLogger(this.getClass());
     @Override
     public CmdResponse<String> execute(JMedisClient client, String[] param) {

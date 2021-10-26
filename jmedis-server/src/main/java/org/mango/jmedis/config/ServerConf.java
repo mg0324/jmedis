@@ -39,15 +39,15 @@ public class ServerConf {
     /**
      * 默认数据库大小
      */
-    public Integer dbSize = 16;
+    private Integer dbSize = 16;
     /**
      * 缓冲区大小，默认4M
      */
-    public Integer bufferSize = 4 * 1024;
+    private Integer bufferSize = 4 * 1024;
     /**
      * 数据库密码，默认为空
      */
-    public String authPasswd = "";
+    private String authPasswd = "";
 
     public Integer getDbSize() {
         return dbSize;

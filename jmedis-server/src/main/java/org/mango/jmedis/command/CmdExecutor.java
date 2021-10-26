@@ -66,8 +66,13 @@ public class CmdExecutor {
                 log.warn("command[{}] not support!", cmdType);
                 return returnUnknown(cmdType);
             } else {
-                // 分发命令并得到结果
-                return cmd.dispatch(client,oneStartArr(arr));
+                // 先判断是否通过认证 或者是 认证命令才能分发执行
+                if(client.isPassAuth() || cmdType.toUpperCase().equals(JMedisConstant.CMD_AUTH)) {
+                    // 分发命令并得到结果
+                    return cmd.dispatch(client, oneStartArr(arr));
+                }else{
+                    return returnError(ErrorEnum.AUTH_WRONG_NEED.getMsg());
+                }
             }
         }
         return null;
@@ -94,7 +99,18 @@ public class CmdExecutor {
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_ERROR);
         String msg = ErrorEnum.UNKNOWN_CMD.getMsg()
-                + " `"+cmd+"`, with args beginning with:";
+                + " `"+cmd+"`";
+        response.setResult(StringUtil.wrapBr(msg));
+        return response;
+    }
+
+    /**
+     * 返回错误信息
+     * @return
+     */
+    private CmdResponse<String> returnError(String msg){
+        CmdResponse<String> response = new CmdResponse<>();
+        response.setType(JMedisConstant.RESPONSE_ERROR);
         response.setResult(StringUtil.wrapBr(msg));
         return response;
     }

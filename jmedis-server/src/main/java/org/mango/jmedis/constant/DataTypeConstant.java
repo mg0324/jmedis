@@ -7,9 +7,9 @@ package org.mango.jmedis.constant;
  */
 public class DataTypeConstant {
     /**
-     * strings 数据类型
+     * string 数据类型
      */
-    public static final String STRING = "strings";
+    public static final String STRING = "string";
 
     /**
      * list 数据类型

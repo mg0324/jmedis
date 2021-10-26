@@ -8,7 +8,6 @@ import org.mango.jmedis.response.ResponseFormatter;
 import org.mango.jmedis.server.IServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -56,10 +55,10 @@ public class CommandRequestHandler implements EventHandler {
         command = command.replaceAll("\\r\\n","");
         log.info("receive command is {}",command);
         // 执行命令
-        CmdResponse cmdResponse = cmdExecutor.execute(client,command);
-        if(Objects.nonNull(cmdResponse)){
+        CmdResponse cmdResponse = cmdExecutor.execute(client, command);
+        if (Objects.nonNull(cmdResponse)) {
             // 将结果返回给客户端
-            this.server.render(client,responseFormatter.format(cmdResponse));
+            this.server.render(client, responseFormatter.format(cmdResponse));
         }
     }
 }
