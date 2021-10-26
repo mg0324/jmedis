@@ -19,10 +19,10 @@
             <artifactId>commons-cli</artifactId>
             <version>1.4</version>
         </dependency>
-        <dependency>
+       <!-- <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-        </dependency>
+        </dependency>-->
         <!-- https://mvnrepository.com/artifact/com.baulsupp.kolja/jcurses -->
         <!--<dependency>
             <groupId>com.baulsupp.kolja</groupId>
