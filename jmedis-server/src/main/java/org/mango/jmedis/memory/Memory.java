@@ -18,8 +18,8 @@ public class Memory {
 
     // 初始化数据库内存
     static {
-        memory = new HashMap<>(ServerConf.DB_SIZE);
-        for(int i=0;i<ServerConf.DB_SIZE;i++){
+        memory = new HashMap<>(ServerConf.getConf().getDbSize());
+        for(int i=0;i<ServerConf.getConf().getDbSize();i++){
             memory.put(i,new DB());
         }
     }

@@ -41,7 +41,7 @@ public class CommandRequestHandler implements EventHandler {
     public void handle(IServer server,JMedisClient client) throws IOException {
         this.server = server;
         //设置一个读取数据的Buffer
-        ByteBuffer buff = ByteBuffer.allocate(ServerConf.BUFFER_SIZE);
+        ByteBuffer buff = ByteBuffer.allocate(ServerConf.getConf().getBufferSize());
         int size = client.getConn().read(buff);
         if(size == -1){
             // 异常退出或者链接关闭

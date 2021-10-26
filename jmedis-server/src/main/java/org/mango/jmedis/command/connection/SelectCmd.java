@@ -31,9 +31,9 @@ public class SelectCmd extends BaseCmd<String> {
         try {
             int dbIndex = Integer.parseInt(index);
             // index = [0,15]
-            if(dbIndex < 0 || dbIndex > ServerConf.DB_SIZE - 1){
+            if(dbIndex < 0 || dbIndex > ServerConf.getConf().getDbSize() - 1){
                 String msg = ErrorEnum.PARAM_WRONG_RANGE.getMsg() +
-                        ",expect [0,"+(ServerConf.DB_SIZE - 1)+"]";
+                        ",expect [0,"+(ServerConf.getConf().getDbSize() - 1)+"]";
                 return this.renderUseError(msg);
             }
         }catch (NumberFormatException e){

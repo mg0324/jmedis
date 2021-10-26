@@ -1,7 +1,7 @@
 # jmedis
 java版自实现redis
 
-# 实现功能
+# 实现功能及优化点
 ## jmedis-server
 1. 基于nio实现多路复用器，单线程支持多个客户端
 2. 实现ping pong测试命令
@@ -15,6 +15,8 @@ java版自实现redis
 10. ~~优化命令注册代码，基于`reflections`加`@Cmd`注解实现自动注册~~
 11. 去掉`reflections`框架，利用反射代码解析`@Cmd`实现自动注册，减小服务端程序jar包容量
 12. 只引入`logback`做日志框架，去掉`lombok`,缩小服务端程序大小到842K
+13. 优化代码，修复服务器异常退出的问题
+14. 加入配置文件加载功能，有限读取配置文件值，没有则使用程序默认值。
 
 ## jmedis-client
 1. 基于apache commons cli框架实现java cmd程序

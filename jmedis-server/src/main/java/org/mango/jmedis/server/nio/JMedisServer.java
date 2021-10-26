@@ -1,6 +1,7 @@
 package org.mango.jmedis.server.nio;
 
 import org.mango.jmedis.client.JMedisClient;
+import org.mango.jmedis.config.ServerConf;
 import org.mango.jmedis.constant.JMedisConstant;
 import org.mango.jmedis.ehandler.AcceptEventHandler;
 import org.mango.jmedis.ehandler.CommandRequestHandler;
@@ -35,12 +36,18 @@ public class JMedisServer implements IServer {
     // 客户端map
     private Map<String, JMedisClient> clientMap;
 
+    public JMedisServer(String conf){
+        // 加载配置文件
+        ServerConf.loadServerConf(conf);
+    }
+
     /**
      * 初始化nio server
      * @param port
      * @throws IOException
      */
     private void init(int port) throws IOException {
+        // 初始化端口
         this.port = port;
         //创建选择器
         this.selector = Selector.open();
