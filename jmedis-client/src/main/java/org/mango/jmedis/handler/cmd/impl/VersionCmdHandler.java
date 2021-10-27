@@ -1,8 +1,8 @@
-package org.mango.jmedis.handler.impl;
+package org.mango.jmedis.handler.cmd.impl;
 
 import org.apache.commons.cli.CommandLine;
 import org.mango.jmedis.config.ClientConf;
-import org.mango.jmedis.handler.Handler;
+import org.mango.jmedis.handler.cmd.CmdHandler;
 import org.mango.jmedis.util.ClientUtil;
 
 /**
@@ -10,7 +10,7 @@ import org.mango.jmedis.util.ClientUtil;
  * @Date 2021-10-24 15:24
  * @Created by mango
  */
-public class VersionHandler extends Handler {
+public class VersionCmdHandler extends CmdHandler {
 
     @Override
     public boolean fit(CommandLine cmdLine) {
@@ -18,7 +18,8 @@ public class VersionHandler extends Handler {
     }
 
     @Override
-    public void doHandle(CommandLine cmdLine) {
+    public boolean doHandle(CommandLine cmdLine) {
         ClientUtil.println(ClientConf.PROGRAM_NAME + " " + ClientConf.VERSION);
+        return false;
     }
 }

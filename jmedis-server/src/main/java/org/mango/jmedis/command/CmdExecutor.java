@@ -44,9 +44,9 @@ public class CmdExecutor {
                     cmdList.add(e.getSimpleName());
                 }
             }
-            log.info("register cmd {} success",cmdList);
+            log.info("register client {} success",cmdList);
         }catch (Exception e){
-            log.error("init cmd map error:{}",e.getMessage(),e);
+            log.error("init client map error:{}",e.getMessage(),e);
         }
     }
 
@@ -67,7 +67,9 @@ public class CmdExecutor {
                 return returnUnknown(cmdType);
             } else {
                 // 先判断是否通过认证 或者是 认证命令才能分发执行
-                if(client.isPassAuth() || cmdType.toUpperCase().equals(JMedisConstant.CMD_AUTH)) {
+                if(client.isPassAuth()
+                        || cmdType.toUpperCase().equals(JMedisConstant.CMD_AUTH)
+                        || cmdType.toUpperCase().equals(JMedisConstant.CMD_QUIT)) {
                     // 分发命令并得到结果
                     return cmd.dispatch(client, oneStartArr(arr));
                 }else{

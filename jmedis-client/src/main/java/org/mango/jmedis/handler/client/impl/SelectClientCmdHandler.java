@@ -1,19 +1,20 @@
-package org.mango.jmedis.cmdHandler.impl;
+package org.mango.jmedis.handler.client.impl;
 
 import org.mango.jmedis.client.JMedisClient;
-import org.mango.jmedis.cmdHandler.CmdHandler;
+import org.mango.jmedis.handler.client.ClientCmdHandler;
+import org.mango.jmedis.constant.JMedisConstant;
 
 /**
  * @Description select 命令处理器
  * @Date 2021-10-24 17:14
  * @Created by mango
  */
-public class SelectCmdHandler extends CmdHandler {
+public class SelectClientCmdHandler extends ClientCmdHandler {
 
     @Override
     public boolean fit(JMedisClient client,String cmd) {
-        String[] cmds = cmd.split(" ");
-        if(cmds.length > 0 && "select".equals(cmds[0].toLowerCase())){
+        String[] cmds = cmd.split(JMedisConstant.SPACE);
+        if(cmds.length > 0 && JMedisConstant.SELECT.equals(cmds[0].toLowerCase())){
             return true;
         }else{
             return false;
@@ -22,7 +23,7 @@ public class SelectCmdHandler extends CmdHandler {
 
     @Override
     public void doHandle(JMedisClient client,String cmd) {
-        String[] cmds = cmd.split(" ");
+        String[] cmds = cmd.split(JMedisConstant.SPACE);
         client.setDbIndex(Integer.parseInt(cmds[1]));
     }
 }

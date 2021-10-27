@@ -1,15 +1,15 @@
-package org.mango.jmedis.cmdHandler;
+package org.mango.jmedis.handler.client;
 
 import org.mango.jmedis.client.JMedisClient;
 
 /**
- * @Description 命令处理器
+ * @Description 客户端命令处理器
  * @Date 2021-10-24 17:12
  * @Created by mango
  */
-public abstract class CmdHandler {
+public abstract class ClientCmdHandler {
     // 下一个处理器
-    private CmdHandler next;
+    private ClientCmdHandler next;
     /**
      * 链式处理命令行
      *
@@ -31,7 +31,7 @@ public abstract class CmdHandler {
      * 设置下一个处理器
      * @param handler
      */
-    public void setNext(CmdHandler handler){
+    public void setNext(ClientCmdHandler handler){
         this.next = handler;
     }
 

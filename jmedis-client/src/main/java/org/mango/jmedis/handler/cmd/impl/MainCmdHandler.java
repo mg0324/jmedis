@@ -1,21 +1,16 @@
-package org.mango.jmedis.handler.impl;
+package org.mango.jmedis.handler.cmd.impl;
 
 import org.apache.commons.cli.CommandLine;
-import org.mango.jmedis.client.ClientCommand;
-import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.config.ClientConf;
-import org.mango.jmedis.handler.Handler;
+import org.mango.jmedis.handler.cmd.CmdHandler;
 import org.mango.jmedis.util.ClientUtil;
-import org.mango.jmedis.util.StringUtil;
 
 /**
  * @Description main处理器
  * @Date 2021-10-24 15:24
  * @Created by mango
  */
-public class MainHandler extends Handler {
-    // 客户端
-    private JMedisClient client;
+public class MainCmdHandler extends CmdHandler {
 
     @Override
     public boolean fit(CommandLine cmdLine) {
@@ -23,14 +18,15 @@ public class MainHandler extends Handler {
     }
 
     @Override
-    public void doHandle(CommandLine cmdLine) {
+    public boolean doHandle(CommandLine cmdLine) {
         String host = cmdLine.getOptionValue("h",ClientConf.DEFAULT_HOST);
         String port = cmdLine.getOptionValue("p",ClientConf.DEFAULT_PORT+"");
         try {
             int nPort = Integer.parseInt(port);
-            client = new JMedisClient(host,nPort);
+            ClientUtil.buildClient(host,nPort);
         }catch (NumberFormatException e){
             ClientUtil.println("(error) port need number type");
         }
+        return false;
     }
 }

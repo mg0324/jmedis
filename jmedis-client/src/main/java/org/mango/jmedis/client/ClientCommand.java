@@ -1,10 +1,11 @@
 package org.mango.jmedis.client;
 
 import org.apache.commons.cli.*;
-import org.mango.jmedis.handler.Handler;
-import org.mango.jmedis.handler.impl.HelpHandler;
-import org.mango.jmedis.handler.impl.MainHandler;
-import org.mango.jmedis.handler.impl.VersionHandler;
+import org.mango.jmedis.handler.cmd.CmdHandler;
+import org.mango.jmedis.handler.cmd.impl.HelpCmdHandler;
+import org.mango.jmedis.handler.cmd.impl.MainCmdHandler;
+import org.mango.jmedis.handler.cmd.impl.PasswordCmdHandler;
+import org.mango.jmedis.handler.cmd.impl.VersionCmdHandler;
 import org.mango.jmedis.util.ClientUtil;
 
 /**
@@ -16,7 +17,7 @@ public class ClientCommand {
     // 可选选项集
     public static Options options;
     // 处理器 chain
-    private Handler handler;
+    private CmdHandler cmdHandler;
 
     public ClientCommand(){
         this.options = new Options();
@@ -28,19 +29,23 @@ public class ClientCommand {
         // 添加一个选项 c ，并加上对应的简短说明，第二个参数表明这个选项是否跟有参数
         options.addOption("h", true, "jmedis server host, eg:127.0.0.1");
         options.addOption("p", true, "jmedis server port, eg:8000");
+        options.addOption("password", true, "jmedis server auth password");
         options.addOption("help", "show jmedis-cli help");
         options.addOption("version", "show jmedis-cli version, eg:1.0.0");
     }
     // 初始化处理器列表
     private void initHandler(){
         // 1 help
-        handler = new HelpHandler();
+        cmdHandler = new HelpCmdHandler();
         // 2 version
-        Handler versionHandler = new VersionHandler();
-        handler.setNext(versionHandler);// set 1'next = 2
-        // 3 main
-        Handler mainHandler = new MainHandler();
-        versionHandler.setNext(mainHandler);
+        CmdHandler versionCmdHandler = new VersionCmdHandler();
+        cmdHandler.setNext(versionCmdHandler);// set 1'next = 2
+        // 3 password
+        CmdHandler passwordCmdHandler = new PasswordCmdHandler();
+        versionCmdHandler.setNext(passwordCmdHandler);
+        // 100 main
+        CmdHandler mainCmdHandler = new MainCmdHandler();
+        passwordCmdHandler.setNext(mainCmdHandler);
     }
 
     /**
@@ -54,7 +59,7 @@ public class ClientCommand {
             // 解析后会得到一个 CommandLine 对象
             CommandLine cmd = parser.parse(options, args);
             // 开始链式处理命令行
-            this.handler.handle(cmd);
+            this.cmdHandler.handle(cmd);
         } catch (ParseException e) {
             // 解析失败是用 HelpFormatter 打印 帮助信息
             ClientUtil.showUsage(options);

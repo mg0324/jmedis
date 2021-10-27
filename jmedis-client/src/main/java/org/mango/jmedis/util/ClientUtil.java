@@ -11,6 +11,8 @@ import org.mango.jmedis.config.ClientConf;
  * @Created by mango
  */
 public class ClientUtil {
+
+    private static JMedisClient client = new JMedisClient();
     /**
      * 帮助格式化器
      */
@@ -22,6 +24,23 @@ public class ClientUtil {
      */
     public static HelpFormatter getHelpFormatter(){
        return helpFormatter;
+    }
+
+    /**
+     * 构建客户端
+     * @param host
+     * @param port
+     */
+    public static void buildClient(String host,int port){
+        client.init(host,port,0);
+    }
+
+    /**
+     * 获取客户端
+     * @return
+     */
+    public static JMedisClient getClient(){
+        return client;
     }
 
     /**

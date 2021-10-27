@@ -53,4 +53,8 @@ public class JMedisConstant {
      * AUTH命令
      */
     public final static String CMD_AUTH = "AUTH";
+    /**
+     * QUIT命令
+     */
+    public final static String CMD_QUIT = "QUIT";
 }

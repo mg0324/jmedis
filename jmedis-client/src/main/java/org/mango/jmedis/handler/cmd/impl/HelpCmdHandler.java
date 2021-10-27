@@ -1,8 +1,8 @@
-package org.mango.jmedis.handler.impl;
+package org.mango.jmedis.handler.cmd.impl;
 
 import org.apache.commons.cli.CommandLine;
 import org.mango.jmedis.client.ClientCommand;
-import org.mango.jmedis.handler.Handler;
+import org.mango.jmedis.handler.cmd.CmdHandler;
 import org.mango.jmedis.util.ClientUtil;
 
 /**
@@ -10,7 +10,7 @@ import org.mango.jmedis.util.ClientUtil;
  * @Date 2021-10-24 15:24
  * @Created by mango
  */
-public class HelpHandler extends Handler {
+public class HelpCmdHandler extends CmdHandler {
 
     @Override
     public boolean fit(CommandLine cmdLine) {
@@ -18,7 +18,8 @@ public class HelpHandler extends Handler {
     }
 
     @Override
-    public void doHandle(CommandLine cmdLine) {
+    public boolean doHandle(CommandLine cmdLine) {
         ClientUtil.showUsage(ClientCommand.options);
+        return false;
     }
 }
