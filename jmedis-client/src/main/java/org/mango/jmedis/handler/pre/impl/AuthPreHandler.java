@@ -20,7 +20,7 @@ public class AuthPreHandler extends PreHandler {
         String cmd = JMedisConstant.AUTH + JMedisConstant.SPACE + ClientUtil.getClient().getAuthPwd();
         ClientUtil.getClient().executeCmd(cmd);
         // 阻塞读取数据
-        if(!ClientUtil.getClient().readData()){
+        if(!ClientUtil.getClient().readData(false)){
             // 认证失败，退出
             ClientUtil.getClient().close();
         }

@@ -103,7 +103,7 @@ public class JMedisClient {
             // 发送数据
             conn.write(data);
             // 阻塞读取数据
-            if(readData()){
+            if(readData(true)){
                 // 执行成功后，执行客户端对应命令操作
                 this.clientCmdHandler.handle(this,cmd);
             }
@@ -114,7 +114,7 @@ public class JMedisClient {
         }
     }
     // 阻塞读取数据
-    public boolean readData() throws IOException {
+    public boolean readData(boolean isPrint) throws IOException {
         //设置一个读取数据的Buffer
         ByteBuffer buff = ByteBuffer.allocate(ClientConf.BUFFER_SIZE);
         int size = conn.read(buff);
@@ -124,7 +124,9 @@ public class JMedisClient {
             return false;
         }
         String data = new String(buff.array(),0,size, StandardCharsets.UTF_8);
-        ClientUtil.print(data);
+        if(isPrint) {
+            ClientUtil.print(data);
+        }
         // 客户端根据服务端返回成功，如果是以(error)开头则失败
         if(data.startsWith("(error)")){
             return false;
