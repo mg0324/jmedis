@@ -9,6 +9,7 @@ public enum ErrorEnum {
 
     // 语法错误syntax
     UNKNOWN_CMD("1000", "ERR unknown command"),
+    EMPTY_CMD("1001", "ERR empty command"),
     // 参数个数错误
     PARAM_WRONG_NUMBER("2000", "ERR wrong number of arguments"),
     PARAM_WRONG_TYPE("2001", "ERR param type wrong"),

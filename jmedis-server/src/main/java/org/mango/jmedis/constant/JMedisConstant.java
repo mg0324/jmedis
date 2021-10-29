@@ -8,6 +8,10 @@ package org.mango.jmedis.constant;
 public class JMedisConstant {
 
     /**
+     * 空格
+     */
+    public final static String SPACE = " ";
+    /**
      * 有客户端连接事件
      */
     public final static String EVENT_ACCEPT = "1";

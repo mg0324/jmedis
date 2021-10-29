@@ -2,6 +2,10 @@ package org.mango.jmedis.command;
 
 import org.mango.jmedis.annotation.Cmd;
 import org.mango.jmedis.client.JMedisClient;
+import org.mango.jmedis.command.validator.CmdValidator;
+import org.mango.jmedis.command.validator.impl.AuthValidator;
+import org.mango.jmedis.command.validator.impl.NotEmptyValidator;
+import org.mango.jmedis.command.validator.impl.UnknownValidator;
 import org.mango.jmedis.constant.JMedisConstant;
 import org.mango.jmedis.enums.ErrorEnum;
 import org.mango.jmedis.response.CmdResponse;
@@ -9,8 +13,6 @@ import org.mango.jmedis.util.ClassUtil;
 import org.mango.jmedis.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.lang.annotation.Annotation;
 import java.util.*;
 
 /**
@@ -23,11 +25,27 @@ public class CmdExecutor {
 
     // 命令接口注册map
     private Map<String, ICmd> cmdMap;
+    // 命令校验器
+    private CmdValidator cmdValidator;
+
 
     public CmdExecutor(){
         cmdMap = new HashMap<>();
         // 注册命令执行器
         this.registerCmdMap();
+        // 初始化命令校验器
+        this.initCmdValidator();
+    }
+    // 初始化命令校验器
+    private void initCmdValidator() {
+        // 1.校验非空命令
+        cmdValidator = new NotEmptyValidator();
+        // 2.校验未知命令
+        UnknownValidator unknownValidator = new UnknownValidator();
+        cmdValidator.setNext(unknownValidator);
+        // 3.校验权限
+        AuthValidator authValidator = new AuthValidator();
+        unknownValidator.setNext(authValidator);
     }
 
     // 通过注解@Cmd注册命令
@@ -36,11 +54,11 @@ public class CmdExecutor {
             List<Class<?>> cmdClassList = ClassUtil.getClasses(this.getClass().getPackage().getName());
             List<String> cmdList = new ArrayList<>();
             for(Class e : cmdClassList){
-                Annotation[] annos = e.getAnnotationsByType(Cmd.class);
-                if(annos.length>0) {
+                Cmd cmd = (Cmd) e.getAnnotation(Cmd.class);
+                if(Objects.nonNull(cmd)) {
                     ICmd bean = (ICmd) e.newInstance();
-                    String cmd = StringUtil.getNoCmdClassName(e.getSimpleName());
-                    cmdMap.put(cmd, bean);
+                    String command = StringUtil.getNoCmdClassName(e.getSimpleName());
+                    cmdMap.put(command, bean);
                     cmdList.add(e.getSimpleName());
                 }
             }
@@ -51,6 +69,15 @@ public class CmdExecutor {
     }
 
     /**
+     * 通过命令字符串获取对应命令对象
+     * @param command 命令字符串
+     * @return Cmd
+     */
+    public ICmd getCmd(String command){
+        return this.cmdMap.get(command);
+    }
+
+    /**
      * 执行命令
      * @param client 客户端
      * @param command 命令
@@ -58,34 +85,22 @@ public class CmdExecutor {
      */
     public CmdResponse execute(JMedisClient client,String command){
         log.debug("execute command:{}",command);
-        if(StringUtil.isNotBlank(command)) {
-            String[] arr = command.split(" ");
-            String cmdType = arr[0];
-            ICmd cmd = cmdMap.get(cmdType.toUpperCase());
-            if (null == cmd) {
-                log.warn("command[{}] not support!", cmdType);
-                return returnUnknown(cmdType);
-            } else {
-                // 先判断是否通过认证 或者是 认证命令才能分发执行
-                if(client.isPassAuth()
-                        || cmdType.toUpperCase().equals(JMedisConstant.CMD_AUTH)
-                        || cmdType.toUpperCase().equals(JMedisConstant.CMD_QUIT)) {
-                    // 分发命令并得到结果
-                    return cmd.dispatch(client, oneStartArr(arr));
-                }else{
-                    return returnError(ErrorEnum.AUTH_WRONG_NEED.getMsg());
-                }
-            }
+        // 执行校验链
+        CmdResponse response = cmdValidator.validate(this,client,command);
+        if(Objects.nonNull(response)){
+            return response;
         }
-        return null;
+        // 分发命令并得到结果
+        return parseCmd(command).dispatch(client, oneStartArr(command));
     }
 
     /**
      * 取数据从1开始的数据到新数组
-     * @param arr
+     * @param command
      * @return
      */
-    private String[] oneStartArr(String[] arr){
+    private String[] oneStartArr(String command){
+        String[] arr = command.split(JMedisConstant.SPACE);
         String[] result = new String[arr.length-1];
         for(int i=1;i<arr.length;i++){
             result[i-1] = arr[i];
@@ -94,10 +109,21 @@ public class CmdExecutor {
     }
 
     /**
+     * 通过原始命令字符串得到命令对象
+     * @param command
+     * @return
+     */
+    private ICmd parseCmd(String command){
+        String[] arr = command.split(JMedisConstant.SPACE);
+        String cmdType = arr[0];
+        return cmdMap.get(cmdType.toUpperCase());
+    }
+
+    /**
      * 返回未知命令
      * @return
      */
-    private CmdResponse<String> returnUnknown(String cmd){
+    public CmdResponse<String> returnUnknown(String cmd){
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_ERROR);
         String msg = ErrorEnum.UNKNOWN_CMD.getMsg()
@@ -110,7 +136,7 @@ public class CmdExecutor {
      * 返回错误信息
      * @return
      */
-    private CmdResponse<String> returnError(String msg){
+    public CmdResponse<String> returnError(String msg){
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_ERROR);
         response.setResult(StringUtil.wrapBr(msg));

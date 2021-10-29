@@ -1,4 +1,4 @@
-package org.mango.jmedis.command.connection;
+package org.mango.jmedis.command.impl.connection;
 
 import org.mango.jmedis.annotation.Cmd;
 import org.mango.jmedis.client.JMedisClient;
