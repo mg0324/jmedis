@@ -82,7 +82,7 @@ public abstract class BaseCmd<T> implements ICmd<T> {
     protected CmdResponse<String> renderUseError(String data){
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_ERROR);
-        response.setResult(StringUtil.wrapBr(data));
+        response.setResult(data);
         return response;
     }
 
@@ -94,7 +94,7 @@ public abstract class BaseCmd<T> implements ICmd<T> {
     protected CmdResponse<String> renderUseEmpty(String data){
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_EMPTY);
-        response.setResult(StringUtil.wrapBr(data));
+        response.setResult(data);
         return response;
     }
 
@@ -106,7 +106,7 @@ public abstract class BaseCmd<T> implements ICmd<T> {
     protected CmdResponse<String> renderUseString(String data){
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_STRING);
-        response.setResult(StringUtil.wrapBr(data));
+        response.setResult(data);
         return response;
     }
 
@@ -129,7 +129,7 @@ public abstract class BaseCmd<T> implements ICmd<T> {
     protected CmdResponse<String> renderOk(){
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_EMPTY);
-        response.setResult(StringUtil.wrapBr("OK"));
+        response.setResult("OK");
         return response;
     }
 
@@ -138,10 +138,10 @@ public abstract class BaseCmd<T> implements ICmd<T> {
      * @param data 数据
      * @return
      */
-    protected CmdResponse<Integer> renderUseInteger(String data){
+    protected CmdResponse<Integer> renderUseInteger(Integer data){
         CmdResponse<Integer> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_INTEGER);
-        response.setResult(Integer.parseInt(data.trim()));
+        response.setResult(data);
         return response;
     }
 
@@ -152,7 +152,7 @@ public abstract class BaseCmd<T> implements ICmd<T> {
     protected CmdResponse<String> renderUseNull(){
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_NULL);
-        response.setResult(StringUtil.wrapBr(""));
+        response.setResult("");
         return response;
     }
 

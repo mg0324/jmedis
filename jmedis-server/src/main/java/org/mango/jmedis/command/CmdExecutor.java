@@ -128,7 +128,7 @@ public class CmdExecutor {
         response.setType(JMedisConstant.RESPONSE_ERROR);
         String msg = ErrorEnum.UNKNOWN_CMD.getMsg()
                 + " `"+cmd+"`";
-        response.setResult(StringUtil.wrapBr(msg));
+        response.setResult(msg);
         return response;
     }
 
@@ -139,7 +139,7 @@ public class CmdExecutor {
     public CmdResponse<String> returnError(String msg){
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_ERROR);
-        response.setResult(StringUtil.wrapBr(msg));
+        response.setResult(msg);
         return response;
     }
 }

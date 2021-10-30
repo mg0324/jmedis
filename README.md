@@ -34,6 +34,7 @@ java版自实现redis
 16. 引入责任链模式，优化命令执行前的校验逻辑。
 17. 利用`@NoAuth`注解实现命令白名单。
 18. 实现echo命令。
+19. 实现dbsize命令。
 
 ### jmedis-client
 1. 基于apache commons cli框架实现java cmd程序
