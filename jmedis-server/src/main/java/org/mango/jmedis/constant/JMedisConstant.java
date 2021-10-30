@@ -29,6 +29,15 @@ public class JMedisConstant {
     public final static String BR = "\r\n";
 
     /**
+     * 日期时间格式
+     */
+    public final static String PATTERN_DATETIME = "yyyy-MM-dd HH:mm:ss";
+    /**
+     * 日期格式
+     */
+    public final static String PATTERN_DATE = "yyyy-MM-dd";
+
+    /**
      * 命令响应 error类型
      */
     public final static String RESPONSE_ERROR = "error";

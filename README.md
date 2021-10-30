@@ -35,6 +35,7 @@ java版自实现redis
 17. 利用`@NoAuth`注解实现命令白名单。
 18. 实现echo命令。
 19. 实现dbsize命令。
+20. 实现time命令。
 
 ### jmedis-client
 1. 基于apache commons cli框架实现java cmd程序

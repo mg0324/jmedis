@@ -17,7 +17,7 @@ public abstract class BaseCmd<T> implements ICmd<T> {
 
     @Override
     public String name() {
-        return this.getClass().getSimpleName().toUpperCase().replace("CMD","");
+        return StringUtil.getNoCmdClassName(this.getClass().getSimpleName());
     }
 
     // 模板方法
