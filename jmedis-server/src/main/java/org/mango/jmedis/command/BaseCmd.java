@@ -4,6 +4,7 @@ import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.constant.JMedisConstant;
 import org.mango.jmedis.enums.ErrorEnum;
 import org.mango.jmedis.response.CmdResponse;
+import org.mango.jmedis.response.bean.Info;
 import org.mango.jmedis.util.StringUtil;
 
 import java.util.List;
@@ -106,6 +107,18 @@ public abstract class BaseCmd<T> implements ICmd<T> {
     protected CmdResponse<String> renderUseString(String data){
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_STRING);
+        response.setResult(data);
+        return response;
+    }
+
+    /**
+     * 以info类型返回数据
+     * @param data 数据
+     * @return
+     */
+    protected CmdResponse<Info> renderUseInfo(Info data){
+        CmdResponse<Info> response = new CmdResponse<>();
+        response.setType(JMedisConstant.RESPONSE_INFO);
         response.setResult(data);
         return response;
     }

@@ -24,6 +24,7 @@ public class ResponseFormatter {
         formatterMap.put(JMedisConstant.RESPONSE_STRING,new CommonResponseFormatter());
         formatterMap.put(JMedisConstant.RESPONSE_INTEGER,new CommonResponseFormatter());
         formatterMap.put(JMedisConstant.RESPONSE_LIST,new ListResponseFormatter());
+        formatterMap.put(JMedisConstant.RESPONSE_INFO,new InfoResponseFormatter());
     }
 
     /**

@@ -36,6 +36,23 @@ java版自实现redis
 18. 实现echo命令。
 19. 实现dbsize命令。
 20. 实现time命令。
+21. 实现info命令，搭建好基本架构，基于`sigar`工具包。
+``` bash
+127.0.0.1:8000[0]>info
+# Server
+tcp_port=8000
+process_id=64187
+jmedis_dbsize=16
+os=Mac OS X x86_64 10.15.7
+jmedis_version=1.0.0
+java_version=1.8.0_221
+jmedis_buffer_size=4096KB
+config_file=/Users/mango/git/jmedis/jmedis-server/src/main/bin/jmedis.conf
+uptime=2542583.0
+
+# Clients
+connected_clients=1
+```
 
 ### jmedis-client
 1. 基于apache commons cli框架实现java cmd程序
