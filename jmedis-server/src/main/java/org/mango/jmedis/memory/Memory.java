@@ -76,4 +76,17 @@ public class Memory {
             clearAllKeys(i);
         }
     }
+
+    /**
+     * 追加字符串
+     * @param dbIndex 数据库下标
+     * @param keySds key
+     * @param valueSds value
+     * @return 字符值长度
+     */
+    public static Integer appendString(int dbIndex, SDS keySds, SDS valueSds) {
+        JMedisString str = (JMedisString) memory.get(dbIndex).get(keySds.getString());
+        str.getValue().setValue(str.getValue().getString()+valueSds.getString());
+        return str.getValue().getBytes().length;
+    }
 }
