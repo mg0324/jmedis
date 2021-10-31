@@ -5,10 +5,7 @@ import org.mango.jmedis.memory.local.IType;
 import org.mango.jmedis.memory.local.datatype.SDS;
 import org.mango.jmedis.memory.local.JMedisString;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @Description 内存区
@@ -106,6 +103,26 @@ public class Memory {
         }else {
             type.setExpireTime(value);
             return 1;
+        }
+    }
+
+    /**
+     * 获取key的有效时间，单位秒
+     * @param dbIndex 数据库下标
+     * @param key key
+     * @return 有效时间，秒;不存在则返回-1,过期返回0
+     */
+    public static Integer ttlKey(int dbIndex, String key) {
+        IType type = memory.get(dbIndex).get(key);
+        if(Objects.isNull(type)){
+            return -1;
+        }else {
+            Date expireTime = type.getExpireTime();
+            if(expireTime.after(new Date())){
+                return (int)((expireTime.getTime() - System.currentTimeMillis()) / 1000);
+            }else{
+                return 0;
+            }
         }
     }
 }
