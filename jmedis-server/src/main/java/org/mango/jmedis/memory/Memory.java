@@ -67,4 +67,13 @@ public class Memory {
     public static void clearAllKeys(int dbIndex) {
         memory.get(dbIndex).clear();
     }
+
+    /**
+     * 清除所有数据库里的keys
+     */
+    public static void clearAllKeys() {
+        for(int i=0;i<ServerConf.getConf().getDbSize();i++){
+            clearAllKeys(i);
+        }
+    }
 }

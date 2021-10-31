@@ -54,6 +54,8 @@ uptime=2542583.0
 connected_clients=1
 ```
 22. 实现flushdb命令。
+23. 实现flushall命令。
+
 
 ### jmedis-client
 1. 基于apache commons cli框架实现java cmd程序
