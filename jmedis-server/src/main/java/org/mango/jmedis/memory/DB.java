@@ -45,4 +45,11 @@ public class DB {
     public Set<String> keys() {
         return dbMap.keySet();
     }
+
+    /**
+     * 清除map
+     */
+    public void clear() {
+        dbMap.clear();
+    }
 }

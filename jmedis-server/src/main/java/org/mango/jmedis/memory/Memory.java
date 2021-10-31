@@ -53,10 +53,18 @@ public class Memory {
 
     /**
      * 获取下标index对应数据库的所有键值
-     * @param index
+     * @param index 数据库下标
      * @return
      */
     public static Set<String> getAllKeys(int index){
         return memory.get(index).keys();
+    }
+
+    /**
+     * 清除数据库下标里的keys
+     * @param dbIndex 数据库下标
+     */
+    public static void clearAllKeys(int dbIndex) {
+        memory.get(dbIndex).clear();
     }
 }
