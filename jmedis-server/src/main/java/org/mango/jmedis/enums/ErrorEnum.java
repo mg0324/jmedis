@@ -14,6 +14,7 @@ public enum ErrorEnum {
     PARAM_WRONG_NUMBER("2000", "ERR wrong number of arguments"),
     PARAM_WRONG_TYPE("2001", "ERR param type wrong"),
     PARAM_WRONG_RANGE("2002", "ERR param range wrong"),
+    PARAM_WRONG_RANGE_TYPE("2003", "ERR value is not an integer or out of range"),
     // 语法错误syntax
     SYNTA_WRONG("3000", "ERR syntax error"),
     // 认证失败

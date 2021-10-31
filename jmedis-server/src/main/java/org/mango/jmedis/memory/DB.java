@@ -1,9 +1,8 @@
 package org.mango.jmedis.memory;
 
-import org.mango.jmedis.datatype.IType;
+import org.mango.jmedis.memory.local.IType;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 

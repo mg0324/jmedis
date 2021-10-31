@@ -56,6 +56,7 @@ connected_clients=1
 22. 实现flushdb命令。
 23. 实现flushall命令。
 24. 实现字符串的append命令。
+25. 实现expire命令。
 
 
 ### jmedis-client

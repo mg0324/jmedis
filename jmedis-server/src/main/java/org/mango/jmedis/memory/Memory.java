@@ -1,11 +1,13 @@
 package org.mango.jmedis.memory;
 
 import org.mango.jmedis.config.ServerConf;
-import org.mango.jmedis.datatype.SDS;
+import org.mango.jmedis.memory.local.IType;
+import org.mango.jmedis.memory.local.datatype.SDS;
 import org.mango.jmedis.memory.local.JMedisString;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -88,5 +90,22 @@ public class Memory {
         JMedisString str = (JMedisString) memory.get(dbIndex).get(keySds.getString());
         str.getValue().setValue(str.getValue().getString()+valueSds.getString());
         return str.getValue().getBytes().length;
+    }
+
+    /**
+     * 设置key的过期时间
+     * @param dbIndex 数据库下标
+     * @param key key
+     * @param value 过期时间，单位秒
+     * @return 设置成功，返回1；失败则返回-1
+     */
+    public static Integer expireKey(int dbIndex,String key, Integer value) {
+        IType type = memory.get(dbIndex).get(key);
+        if(Objects.isNull(type)){
+            return -1;
+        }else {
+            type.setExpireTime(value);
+            return 1;
+        }
     }
 }

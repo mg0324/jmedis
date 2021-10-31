@@ -1,4 +1,4 @@
-package org.mango.jmedis.datatype;
+package org.mango.jmedis.memory.local.datatype;
 
 import java.nio.charset.StandardCharsets;
 
