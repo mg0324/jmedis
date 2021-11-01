@@ -127,7 +127,7 @@ public class Memory {
      */
     public static Integer ttlKey(int dbIndex, String key) {
         IType type = memory.get(dbIndex).get(key);
-        if(Objects.isNull(type)){
+        if(Objects.isNull(type) || Objects.isNull(type.getExpireTime())){
             return -1;
         }else {
             Date expireTime = type.getExpireTime();
