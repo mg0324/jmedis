@@ -60,7 +60,18 @@ public class ServerConf {
      * 数据库密码，默认为空
      */
     private String authPasswd = "";
+    /**
+     * 定时任务线程数，默认核数+1
+     */
+    private int scheduledThreadNum = Runtime.getRuntime().availableProcessors() + 1;
 
+    public int getScheduledThreadNum() {
+        return scheduledThreadNum;
+    }
+
+    public void setScheduledThreadNum(int scheduledThreadNum) {
+        this.scheduledThreadNum = scheduledThreadNum;
+    }
 
     public Integer getPort() {
         return port;

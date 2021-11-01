@@ -12,6 +12,8 @@
 
     <logger name="org" level="error"/>
     <logger name="org.mango.jmedis" level="debug"/>
+    <logger name="org.mango.jmedis.command.CmdExecutor" level="error"/>
+    <logger name="org.mango.jmedis.task.ExpireTask" level="error"/>
     <logger name="ch.qos" level="error"/>
     <!-- 日志输出级别 -->
     <root level="debug">

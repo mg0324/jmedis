@@ -57,7 +57,8 @@ connected_clients=1
 23. 实现flushall命令。
 24. 实现字符串的append命令。
 25. 实现expire命令。
-25. 实现ttl命令。
+26. 实现ttl命令。
+27. 实现定时任务`ExpireTask`处理过期`key`。
 
 
 ### jmedis-client

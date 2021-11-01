@@ -51,4 +51,12 @@ public class DB {
     public void clear() {
         dbMap.clear();
     }
+
+    /**
+     * 删除key
+     * @param key key
+     */
+    public void remove(String key) {
+        dbMap.remove(key);
+    }
 }

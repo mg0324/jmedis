@@ -4,6 +4,8 @@ import org.mango.jmedis.config.ServerConf;
 import org.mango.jmedis.memory.local.IType;
 import org.mango.jmedis.memory.local.datatype.SDS;
 import org.mango.jmedis.memory.local.JMedisString;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -13,6 +15,7 @@ import java.util.*;
  * @Created by mango
  */
 public class Memory {
+    private static Logger log = LoggerFactory.getLogger(Memory.class);
     private static Map<Integer,DB> memory;
 
     // 初始化数据库内存
@@ -34,6 +37,16 @@ public class Memory {
     public static void storeString(int index,SDS key,SDS value){
         JMedisString str = new JMedisString(key,value);
         memory.get(index).put(key.getString(),str);
+    }
+
+    /**
+     * 查询数据
+     * @param index 数据库下标
+     * @param key key
+     * @return itype数据
+     */
+    public static IType get(int index, String key) {
+        return memory.get(index).get(key);
     }
 
     /**
@@ -124,5 +137,15 @@ public class Memory {
                 return 0;
             }
         }
+    }
+
+    /**
+     * 删除key
+     * @param dbIndex 数据库下标
+     * @param key key
+     */
+    public static void removeKey(int dbIndex, String key) {
+        memory.get(dbIndex).remove(key);
+        log.info("DB[{}} key[{}] has expire and removed",dbIndex,key);
     }
 }

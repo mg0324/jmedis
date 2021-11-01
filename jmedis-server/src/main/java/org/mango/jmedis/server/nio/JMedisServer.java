@@ -8,6 +8,8 @@ import org.mango.jmedis.ehandler.CommandRequestHandler;
 import org.mango.jmedis.ehandler.CommandResponseHandler;
 import org.mango.jmedis.ehandler.EventHandler;
 import org.mango.jmedis.server.IServer;
+import org.mango.jmedis.task.ExpireTask;
+import org.mango.jmedis.util.ScheduledUtil;
 import org.mango.jmedis.util.ServerUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,15 +50,22 @@ public class JMedisServer implements IServer {
     private void init(int port) throws IOException {
         // 初始化端口
         this.port = port;
-        //创建选择器
+        // 创建选择器
         this.selector = Selector.open();
-        //打开监听通道
+        // 打开监听通道
         this.server = ServerSocketChannel.open();
         // 注册事件处理器
         this.eventHandlerMap = new HashMap<>();
         eventHandlerMap.put(JMedisConstant.EVENT_ACCEPT,new AcceptEventHandler());
         eventHandlerMap.put(JMedisConstant.EVENT_COMMAND_REQUEST,new CommandRequestHandler());
         eventHandlerMap.put(JMedisConstant.EVENT_COMMAND_RESPONSE,new CommandResponseHandler());
+        // 开启定时任务
+        this.startTask();
+    }
+
+    private void startTask() {
+        // 检查key过期任务，每1秒执行一次
+        ScheduledUtil.start(new ExpireTask(),1l);
     }
 
     @Override
