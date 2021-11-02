@@ -71,6 +71,14 @@ public class Memory {
     public static Set<String> getAllKeys(int index){
         return memory.get(index).keys();
     }
+    /**
+     * 获取下标index对应数据库的所有设置了过期时间的键值
+     * @param index 数据库下标
+     * @return
+     */
+    public static Set<String> getAllExpireKeys(int index) {
+        return memory.get(index).hasExpireKeys();
+    }
 
     /**
      * 清除数据库下标里的keys
@@ -116,6 +124,21 @@ public class Memory {
         }else {
             type.setExpireTime(value);
             return 1;
+        }
+    }
+
+    /**
+     * 处理key的过期时间
+     * @param dbIndex 数据库下标
+     * @param key key
+     */
+    public static void handleExpireKey(int dbIndex,String key){
+        IType type = memory.get(dbIndex).get(key);
+        // 超时时间小于当前时间，则说明过期
+        if(Objects.nonNull(type)
+                && Objects.nonNull(type.getExpireTime())
+                && type.getExpireTime().before(new Date())){
+            Memory.removeKey(dbIndex,key);
         }
     }
 

@@ -64,8 +64,8 @@ public class JMedisServer implements IServer {
     }
 
     private void startTask() {
-        // 检查key过期任务，每1秒执行一次
-        ScheduledUtil.start(new ExpireTask(),1l);
+        // 检查key过期任务，每5秒执行一次
+        ScheduledUtil.start(new ExpireTask(),5l);
     }
 
     @Override

@@ -63,13 +63,37 @@ public class ServerConf {
     /**
      * 定时任务线程数，默认核数+1
      */
-    private int scheduledThreadNum = Runtime.getRuntime().availableProcessors() + 1;
+    private Integer scheduledThreadNum = Runtime.getRuntime().availableProcessors() + 1;
+    /**
+     * 线程任务线程数，默认核数+1
+     */
+    private Integer threadNum = Runtime.getRuntime().availableProcessors() + 1;
+    /**
+     * 处理过期的key的大小，默认15
+     */
+    private Integer handleExpireSize = 15;
 
-    public int getScheduledThreadNum() {
+    public Integer getHandleExpireSize() {
+        return handleExpireSize;
+    }
+
+    public void setHandleExpireSize(Integer handleExpireSize) {
+        this.handleExpireSize = handleExpireSize;
+    }
+
+    public Integer getThreadNum() {
+        return threadNum;
+    }
+
+    public void setThreadNum(Integer threadNum) {
+        this.threadNum = threadNum;
+    }
+
+    public Integer getScheduledThreadNum() {
         return scheduledThreadNum;
     }
 
-    public void setScheduledThreadNum(int scheduledThreadNum) {
+    public void setScheduledThreadNum(Integer scheduledThreadNum) {
         this.scheduledThreadNum = scheduledThreadNum;
     }
 

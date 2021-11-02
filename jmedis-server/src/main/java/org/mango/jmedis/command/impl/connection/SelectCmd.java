@@ -1,6 +1,7 @@
 package org.mango.jmedis.command.impl.connection;
 
 import org.mango.jmedis.annotation.Cmd;
+import org.mango.jmedis.annotation.WithExpire;
 import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.command.BaseCmd;
 import org.mango.jmedis.config.ServerConf;
@@ -13,6 +14,7 @@ import org.mango.jmedis.response.CmdResponse;
  * @Created by mango
  */
 @Cmd
+@WithExpire
 public class SelectCmd extends BaseCmd<String> {
     @Override
     public CmdResponse<String> execute(JMedisClient client, String[] param) {

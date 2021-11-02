@@ -1,6 +1,7 @@
 package org.mango.jmedis.command.impl.keys;
 
 import org.mango.jmedis.annotation.Cmd;
+import org.mango.jmedis.annotation.WithExpire;
 import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.command.BaseCmd;
 import org.mango.jmedis.memory.Memory;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
  * @Created by mango
  */
 @Cmd
+@WithExpire
 public class KeysCmd extends BaseCmd<List> {
     @Override
     public CmdResponse<List> execute(JMedisClient client, String[] param) {

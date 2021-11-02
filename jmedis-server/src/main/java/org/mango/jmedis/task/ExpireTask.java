@@ -32,11 +32,7 @@ public class ExpireTask implements Runnable {
             Set<String> keys = Memory.getAllKeys(a);
             if(Objects.nonNull(keys) && keys.size()>0){
                 for(String e : keys){
-                    // 超时时间小于当前时间，则说明过期
-                    IType iType = Memory.get(a,e);
-                    if(Objects.nonNull(iType.getExpireTime()) && iType.getExpireTime().before(new Date())){
-                        Memory.removeKey(a,e);
-                    }
+                    Memory.handleExpireKey(a,e);
                 }
             }
         });

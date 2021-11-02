@@ -59,6 +59,8 @@ connected_clients=1
 25. 实现expire命令。
 26. 实现ttl命令。
 27. 实现定时任务`ExpireTask`处理过期`key`。
+28. 任务执行时加入命令后置处理器钩子。
+29. 实现执行带`@WithExpire`注解的命令后，渐进式处理当前数据库里的key的过期时间。
 
 
 ### jmedis-client

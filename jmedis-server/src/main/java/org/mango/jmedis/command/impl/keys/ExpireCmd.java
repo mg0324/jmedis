@@ -1,6 +1,7 @@
 package org.mango.jmedis.command.impl.keys;
 
 import org.mango.jmedis.annotation.Cmd;
+import org.mango.jmedis.annotation.WithExpire;
 import org.mango.jmedis.client.JMedisClient;
 import org.mango.jmedis.command.BaseCmd;
 import org.mango.jmedis.enums.ErrorEnum;
@@ -14,6 +15,7 @@ import org.mango.jmedis.response.CmdResponse;
  * @Created by mango
  */
 @Cmd
+@WithExpire
 public class ExpireCmd extends BaseCmd {
     @Override
     public CmdResponse execute(JMedisClient client, String[] param) {
