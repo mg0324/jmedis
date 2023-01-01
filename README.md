@@ -5,13 +5,17 @@ java版自实现redis
 ### jmedis-server
 进入bin目录，执行如下命令启动服务端
 ``` bash
-./jmedis-server.sh jmedis.conf
+./jmedis-server.sh jmedis.conf &
 ```
 
 ### jmedis-client
 进入bin目录，执行如下命令启动客户端
 ``` bash
 ./jmedis-cli.sh -h 192.168.0.1
+```
+或者使用[rlwrap](https://github.com/hanslub42/rlwrap)来增强bash，支持上下左右箭头的功能。
+```shell
+rlwrap ./jmedis-cli.sh -h 192.168.0.1
 ```
 
 ## 实现功能及优化点
