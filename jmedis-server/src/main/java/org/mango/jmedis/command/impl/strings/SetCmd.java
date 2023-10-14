@@ -2,7 +2,7 @@ package org.mango.jmedis.command.impl.strings;
 
 import org.mango.jmedis.annotation.Cmd;
 import org.mango.jmedis.annotation.WithExpire;
-import org.mango.jmedis.client.JMedisClient;
+import org.mango.jmedis.core.JMedisClient;
 import org.mango.jmedis.command.BaseCmd;
 import org.mango.jmedis.memory.local.datatype.SDS;
 import org.mango.jmedis.memory.Memory;

@@ -1,6 +1,6 @@
 package org.mango.jmedis.command;
 
-import org.mango.jmedis.client.JMedisClient;
+import org.mango.jmedis.core.JMedisClient;
 import org.mango.jmedis.response.CmdResponse;
 
 /**

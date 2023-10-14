@@ -1,7 +1,7 @@
 package org.mango.jmedis.command.validator.impl;
 
 import org.mango.jmedis.annotation.NoAuth;
-import org.mango.jmedis.client.JMedisClient;
+import org.mango.jmedis.core.JMedisClient;
 import org.mango.jmedis.command.CmdExecutor;
 import org.mango.jmedis.command.ICmd;
 import org.mango.jmedis.command.validator.CmdValidator;

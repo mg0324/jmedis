@@ -1,16 +1,13 @@
 package org.mango.jmedis.command;
 
-import org.mango.jmedis.client.JMedisClient;
-import org.mango.jmedis.command.after.AfterHandler;
+import org.mango.jmedis.core.JMedisClient;
 import org.mango.jmedis.constant.JMedisConstant;
 import org.mango.jmedis.enums.ErrorEnum;
 import org.mango.jmedis.response.CmdResponse;
 import org.mango.jmedis.response.bean.Info;
-import org.mango.jmedis.util.ExecutorUtil;
 import org.mango.jmedis.util.StringUtil;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @Description 基础命令

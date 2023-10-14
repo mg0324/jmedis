@@ -1,10 +1,10 @@
 package org.mango.jmedis.command.after.impl;
 
 import org.mango.jmedis.annotation.WithExpire;
-import org.mango.jmedis.client.JMedisClient;
+import org.mango.jmedis.core.JMedisClient;
 import org.mango.jmedis.command.ICmd;
 import org.mango.jmedis.command.after.AfterHandler;
-import org.mango.jmedis.config.ServerConf;
+import org.mango.jmedis.core.config.ServerConf;
 import org.mango.jmedis.memory.Memory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

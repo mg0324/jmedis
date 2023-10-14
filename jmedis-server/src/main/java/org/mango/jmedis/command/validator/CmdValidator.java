@@ -1,7 +1,7 @@
 package org.mango.jmedis.command.validator;
 
 
-import org.mango.jmedis.client.JMedisClient;
+import org.mango.jmedis.core.JMedisClient;
 import org.mango.jmedis.command.CmdExecutor;
 import org.mango.jmedis.response.CmdResponse;
 

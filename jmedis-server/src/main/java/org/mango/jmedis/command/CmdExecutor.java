@@ -1,7 +1,7 @@
 package org.mango.jmedis.command;
 
 import org.mango.jmedis.annotation.Cmd;
-import org.mango.jmedis.client.JMedisClient;
+import org.mango.jmedis.core.JMedisClient;
 import org.mango.jmedis.command.after.AfterHandler;
 import org.mango.jmedis.command.after.impl.ExpireAfterHandler;
 import org.mango.jmedis.command.validator.CmdValidator;

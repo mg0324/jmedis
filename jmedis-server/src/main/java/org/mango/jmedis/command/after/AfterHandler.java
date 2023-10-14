@@ -1,6 +1,6 @@
 package org.mango.jmedis.command.after;
 
-import org.mango.jmedis.client.JMedisClient;
+import org.mango.jmedis.core.JMedisClient;
 import org.mango.jmedis.command.ICmd;
 
 import java.util.Objects;

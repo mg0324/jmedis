@@ -1,8 +1,8 @@
 package org.mango.jmedis.server.nio;
 
-import org.mango.jmedis.client.JMedisClient;
-import org.mango.jmedis.config.ServerConf;
+import org.mango.jmedis.core.JMedisClient;
 import org.mango.jmedis.constant.JMedisConstant;
+import org.mango.jmedis.core.config.ServerConfLoader;
 import org.mango.jmedis.ehandler.AcceptEventHandler;
 import org.mango.jmedis.ehandler.CommandRequestHandler;
 import org.mango.jmedis.ehandler.CommandResponseHandler;
@@ -10,7 +10,7 @@ import org.mango.jmedis.ehandler.EventHandler;
 import org.mango.jmedis.server.IServer;
 import org.mango.jmedis.task.ExpireTask;
 import org.mango.jmedis.util.ScheduledUtil;
-import org.mango.jmedis.util.ServerUtil;
+import org.mango.jmedis.core.ClientFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.IOException;
@@ -39,7 +39,7 @@ public class JMedisServer implements IServer {
 
     public JMedisServer(String conf){
         // 加载配置文件
-        ServerConf.loadServerConf(conf);
+        ServerConfLoader.loadServerConf(conf);
     }
 
     /**
@@ -128,7 +128,7 @@ public class JMedisServer implements IServer {
             } else if (key.isReadable()) {
                 SocketChannel socketChannel = (SocketChannel) key.channel();
                 String clientKey = socketChannel.getRemoteAddress().toString();
-                JMedisClient client = ServerUtil.clientMap.get(clientKey);
+                JMedisClient client = ClientFactory.current().get(clientKey);
                 eventHandlerMap.get(JMedisConstant.EVENT_COMMAND_REQUEST).handle(this, client);
             }
         }catch (Throwable e){
@@ -143,12 +143,12 @@ public class JMedisServer implements IServer {
     @Override
     public void addClient( JMedisClient client) throws IOException {
         String key = client.getConn().getRemoteAddress().toString();
-        ServerUtil.clientMap.put(key,client);
+        ClientFactory.current().put(key,client);
     }
 
     @Override
     public JMedisClient getClient(String key) {
-        return ServerUtil.clientMap.get(key);
+        return ClientFactory.current().get(key);
     }
 
     @Override

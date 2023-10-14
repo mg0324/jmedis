@@ -1,6 +1,6 @@
 package org.mango.jmedis.command.validator.impl;
 
-import org.mango.jmedis.client.JMedisClient;
+import org.mango.jmedis.core.JMedisClient;
 import org.mango.jmedis.command.CmdExecutor;
 import org.mango.jmedis.command.validator.CmdValidator;
 import org.mango.jmedis.enums.ErrorEnum;

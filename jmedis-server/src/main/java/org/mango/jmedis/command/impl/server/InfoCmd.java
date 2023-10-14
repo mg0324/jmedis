@@ -3,15 +3,13 @@ package org.mango.jmedis.command.impl.server;
 import org.hyperic.sigar.Sigar;
 import org.hyperic.sigar.SigarException;
 import org.mango.jmedis.annotation.Cmd;
-import org.mango.jmedis.client.JMedisClient;
+import org.mango.jmedis.core.JMedisClient;
 import org.mango.jmedis.command.BaseCmd;
-import org.mango.jmedis.config.ServerConf;
-import org.mango.jmedis.constant.JMedisConstant;
+import org.mango.jmedis.core.config.ServerConf;
 import org.mango.jmedis.response.CmdResponse;
 import org.mango.jmedis.response.bean.Info;
 import org.mango.jmedis.response.bean.InfoBlock;
-import org.mango.jmedis.server.IServer;
-import org.mango.jmedis.util.ServerUtil;
+import org.mango.jmedis.core.ClientFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,7 +63,7 @@ public class InfoCmd extends BaseCmd<Info> {
         InfoBlock block = new InfoBlock();
         block.setName("Clients");
         Map<String,String> props = new HashMap<>();
-        props.put("connected_clients", ServerUtil.clientMap.size()+"");
+        props.put("connected_clients", ClientFactory.current().size()+"");
         block.setProps(props);
         return block;
     }
@@ -78,7 +76,7 @@ public class InfoCmd extends BaseCmd<Info> {
         InfoBlock block = new InfoBlock();
         block.setName("Server");
         Map<String,String> props = new HashMap<>();
-        props.put("jmedis_version", ServerConf.getConf().VERSION);
+        props.put("jmedis_version", ServerConf.getConf().getVersion());
         props.put("jmedis_buffer_size",ServerConf.getConf().getBufferSize()+"KB");
         props.put("jmedis_dbsize",ServerConf.getConf().getDbSize()+"");
         props.put("os",System.getProperty("os.name") + " " + System.getProperty("os.arch") + " " + System.getProperty("os.version"));
@@ -86,7 +84,7 @@ public class InfoCmd extends BaseCmd<Info> {
         props.put("tcp_port",ServerConf.getConf().getPort()+"");
         props.put("process_id",sigar.getPid()+"");
         props.put("uptime",sigar.getUptime().getUptime()+"");
-        props.put("config_file",ServerConf.getConf().CONFIG_FILE);
+        props.put("config_file",ServerConf.getConf().getConfigFile());
         block.setProps(props);
         return block;
     }

@@ -2,9 +2,9 @@ package org.mango.jmedis.command.impl.connection;
 
 import org.mango.jmedis.annotation.Cmd;
 import org.mango.jmedis.annotation.WithExpire;
-import org.mango.jmedis.client.JMedisClient;
+import org.mango.jmedis.core.JMedisClient;
 import org.mango.jmedis.command.BaseCmd;
-import org.mango.jmedis.config.ServerConf;
+import org.mango.jmedis.core.config.ServerConf;
 import org.mango.jmedis.enums.ErrorEnum;
 import org.mango.jmedis.response.CmdResponse;
 

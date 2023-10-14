@@ -1,6 +1,6 @@
-package org.mango.jmedis.client;
+package org.mango.jmedis.core;
 
-import org.mango.jmedis.config.ServerConf;
+import org.mango.jmedis.core.config.ServerConf;
 import org.mango.jmedis.util.StringUtil;
 
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class JMedisClient {
         // 默认选择下标为0的数据库
         this.dbIndex = 0;
         // 设置认证标准，如果没有密码则直接认证通过
-        if(StringUtil.isNotBlank(ServerConf.getConf().getAuthPasswd())){
+        if(StringUtil.isNotBlank(ServerConf.getConf().getAuthPassword())){
             // 需要
             this.passAuth = false;
         }
@@ -52,6 +52,7 @@ public class JMedisClient {
      * @throws IOException
      */
     public void close() throws IOException {
+        ClientFactory.current().remove(getClientKey());
         if(null != conn){
             conn.close();
         }

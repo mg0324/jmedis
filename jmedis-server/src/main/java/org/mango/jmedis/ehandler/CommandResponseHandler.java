@@ -1,6 +1,6 @@
 package org.mango.jmedis.ehandler;
 
-import org.mango.jmedis.client.JMedisClient;
+import org.mango.jmedis.core.JMedisClient;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;

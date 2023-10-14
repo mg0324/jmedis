@@ -2,9 +2,9 @@ package org.mango.jmedis.command.impl.connection;
 
 import org.mango.jmedis.annotation.Cmd;
 import org.mango.jmedis.annotation.NoAuth;
-import org.mango.jmedis.client.JMedisClient;
+import org.mango.jmedis.core.JMedisClient;
 import org.mango.jmedis.command.BaseCmd;
-import org.mango.jmedis.config.ServerConf;
+import org.mango.jmedis.core.config.ServerConf;
 import org.mango.jmedis.enums.ErrorEnum;
 import org.mango.jmedis.response.CmdResponse;
 import org.mango.jmedis.util.StringUtil;
@@ -20,7 +20,7 @@ public class AuthCmd extends BaseCmd<String> {
     @Override
     public CmdResponse<String> execute(JMedisClient client, String[] param) {
         String password = param[0];
-        if(StringUtil.isNotBlank(password) && password.equals(ServerConf.getConf().getAuthPasswd())){
+        if(StringUtil.isNotBlank(password) && password.equals(ServerConf.getConf().getAuthPassword())){
             client.setPassAuth(true);
             return this.renderOk();
         }else{

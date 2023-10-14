@@ -1,12 +1,11 @@
 package org.mango.jmedis.util;
 
-import org.mango.jmedis.config.ServerConf;
+import org.mango.jmedis.core.config.ServerConf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @Description 线程任务

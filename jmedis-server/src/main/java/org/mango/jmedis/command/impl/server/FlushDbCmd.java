@@ -1,12 +1,10 @@
 package org.mango.jmedis.command.impl.server;
 
 import org.mango.jmedis.annotation.Cmd;
-import org.mango.jmedis.client.JMedisClient;
+import org.mango.jmedis.core.JMedisClient;
 import org.mango.jmedis.command.BaseCmd;
 import org.mango.jmedis.memory.Memory;
 import org.mango.jmedis.response.CmdResponse;
-
-import java.util.Set;
 
 /**
  * @Description flushdb 命令

@@ -62,5 +62,23 @@ public class StringUtil {
         return sdf.format(date);
     }
 
+    /**
+     * 下划线转驼峰
+     * @param underlineStr 下划线字符串
+     * @return 驼峰字符串
+     */
+    public static String underlineToCamel(String underlineStr) {
+        StringBuilder camelStrBuilder = new StringBuilder();
+        String[] words = underlineStr.split("_");
+        for (String word : words) {
+            if (camelStrBuilder.length() == 0) {
+                camelStrBuilder.append(word.toLowerCase());
+            } else {
+                camelStrBuilder.append(word.substring(0, 1).toUpperCase());
+                camelStrBuilder.append(word.substring(1).toLowerCase());
+            }
+        }
+        return camelStrBuilder.toString();
+    }
 
 }

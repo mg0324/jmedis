@@ -1,8 +1,7 @@
 package org.mango.jmedis.task;
 
-import org.mango.jmedis.config.ServerConf;
+import org.mango.jmedis.core.config.ServerConf;
 import org.mango.jmedis.memory.Memory;
-import org.mango.jmedis.memory.local.IType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

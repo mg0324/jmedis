@@ -1,8 +1,8 @@
 package org.mango.jmedis.ehandler;
 
-import org.mango.jmedis.client.JMedisClient;
+import org.mango.jmedis.core.JMedisClient;
 import org.mango.jmedis.command.CmdExecutor;
-import org.mango.jmedis.config.ServerConf;
+import org.mango.jmedis.core.config.ServerConf;
 import org.mango.jmedis.response.CmdResponse;
 import org.mango.jmedis.response.ResponseFormatter;
 import org.mango.jmedis.server.IServer;

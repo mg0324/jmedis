@@ -1,6 +1,6 @@
 package org.mango.jmedis.ehandler;
 
-import org.mango.jmedis.client.JMedisClient;
+import org.mango.jmedis.core.JMedisClient;
 import org.mango.jmedis.server.IServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

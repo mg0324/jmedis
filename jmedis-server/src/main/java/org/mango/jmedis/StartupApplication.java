@@ -1,6 +1,6 @@
 package org.mango.jmedis;
 
-import org.mango.jmedis.config.ServerConf;
+import org.mango.jmedis.core.config.ServerConf;
 import org.mango.jmedis.server.IServer;
 import org.mango.jmedis.server.nio.JMedisServer;
 

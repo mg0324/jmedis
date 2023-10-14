@@ -2,7 +2,7 @@ package org.mango.jmedis.command.impl.connection;
 
 import org.mango.jmedis.annotation.Cmd;
 import org.mango.jmedis.annotation.NoAuth;
-import org.mango.jmedis.client.JMedisClient;
+import org.mango.jmedis.core.JMedisClient;
 import org.mango.jmedis.command.BaseCmd;
 import org.mango.jmedis.response.CmdResponse;
 import org.slf4j.Logger;

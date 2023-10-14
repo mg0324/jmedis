@@ -1,6 +1,6 @@
 package org.mango.jmedis.memory;
 
-import org.mango.jmedis.config.ServerConf;
+import org.mango.jmedis.core.config.ServerConf;
 import org.mango.jmedis.memory.local.IType;
 import org.mango.jmedis.memory.local.datatype.SDS;
 import org.mango.jmedis.memory.local.JMedisString;
