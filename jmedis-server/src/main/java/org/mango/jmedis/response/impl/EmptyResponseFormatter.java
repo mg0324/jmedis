@@ -1,5 +1,6 @@
 package org.mango.jmedis.response.impl;
 
+import org.mango.jmedis.constant.JMedisConstant;
 import org.mango.jmedis.response.BaseResponseFormatter;
 import org.mango.jmedis.response.CmdResponse;
 
@@ -11,6 +12,6 @@ import org.mango.jmedis.response.CmdResponse;
 public class EmptyResponseFormatter extends BaseResponseFormatter {
     @Override
     public String render(CmdResponse cmdResponse) {
-        return cmdResponse.getResult().toString();
+        return cmdResponse.getResult().toString() + JMedisConstant.BR;
     }
 }

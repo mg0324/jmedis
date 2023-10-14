@@ -1,12 +1,16 @@
 package org.mango.jmedis.command;
 
 import org.mango.jmedis.client.JMedisClient;
+import org.mango.jmedis.command.after.AfterHandler;
 import org.mango.jmedis.constant.JMedisConstant;
 import org.mango.jmedis.enums.ErrorEnum;
 import org.mango.jmedis.response.CmdResponse;
+import org.mango.jmedis.response.bean.Info;
+import org.mango.jmedis.util.ExecutorUtil;
 import org.mango.jmedis.util.StringUtil;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @Description 基础命令
@@ -17,7 +21,7 @@ public abstract class BaseCmd<T> implements ICmd<T> {
 
     @Override
     public String name() {
-        return this.getClass().getSimpleName().toUpperCase().replace("CMD","");
+        return StringUtil.getNoCmdClassName(this.getClass().getSimpleName());
     }
 
     // 模板方法
@@ -82,7 +86,7 @@ public abstract class BaseCmd<T> implements ICmd<T> {
     protected CmdResponse<String> renderUseError(String data){
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_ERROR);
-        response.setResult(StringUtil.wrapBr(data));
+        response.setResult(data);
         return response;
     }
 
@@ -94,7 +98,7 @@ public abstract class BaseCmd<T> implements ICmd<T> {
     protected CmdResponse<String> renderUseEmpty(String data){
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_EMPTY);
-        response.setResult(StringUtil.wrapBr(data));
+        response.setResult(data);
         return response;
     }
 
@@ -106,7 +110,19 @@ public abstract class BaseCmd<T> implements ICmd<T> {
     protected CmdResponse<String> renderUseString(String data){
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_STRING);
-        response.setResult(StringUtil.wrapBr(data));
+        response.setResult(data);
+        return response;
+    }
+
+    /**
+     * 以info类型返回数据
+     * @param data 数据
+     * @return
+     */
+    protected CmdResponse<Info> renderUseInfo(Info data){
+        CmdResponse<Info> response = new CmdResponse<>();
+        response.setType(JMedisConstant.RESPONSE_INFO);
+        response.setResult(data);
         return response;
     }
 
@@ -129,7 +145,7 @@ public abstract class BaseCmd<T> implements ICmd<T> {
     protected CmdResponse<String> renderOk(){
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_EMPTY);
-        response.setResult(StringUtil.wrapBr("OK"));
+        response.setResult("OK");
         return response;
     }
 
@@ -138,10 +154,10 @@ public abstract class BaseCmd<T> implements ICmd<T> {
      * @param data 数据
      * @return
      */
-    protected CmdResponse<Integer> renderUseInteger(String data){
+    protected CmdResponse<Integer> renderUseInteger(Integer data){
         CmdResponse<Integer> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_INTEGER);
-        response.setResult(Integer.parseInt(data.trim()));
+        response.setResult(data);
         return response;
     }
 
@@ -152,7 +168,7 @@ public abstract class BaseCmd<T> implements ICmd<T> {
     protected CmdResponse<String> renderUseNull(){
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_NULL);
-        response.setResult(StringUtil.wrapBr(""));
+        response.setResult("");
         return response;
     }
 

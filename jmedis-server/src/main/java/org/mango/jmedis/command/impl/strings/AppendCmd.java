@@ -9,28 +9,28 @@ import org.mango.jmedis.memory.Memory;
 import org.mango.jmedis.response.CmdResponse;
 
 /**
- * @Description set 命令
- * @Date 2021-10-23 10:02
+ * @Description append 命令
+ * @Date 2021-10-31 17:04
  * @Created by mango
  */
 @Cmd
 @WithExpire
-public class SetCmd extends BaseCmd<String> {
+public class AppendCmd extends BaseCmd<Integer> {
     /**
-     * eg: set a 1
+     * eg: append a 123
      * @param client 客户端
      * @param param 命令参数
-     * @return
+     * @return 字符串长度
      */
     @Override
-    public CmdResponse<String> execute(JMedisClient client, String[] param) {
+    public CmdResponse<Integer> execute(JMedisClient client, String[] param) {
         String key = param[0];
         String value = param[1];
         SDS keySds = new SDS(key);
         SDS valueSds = new SDS(value);
-        // 将数据存储到对应下标的数据库中
-        Memory.storeString(client.getDbIndex(),keySds,valueSds);
-        return this.renderOk();
+        // 将数据追加到对应下标的数据库中
+        Integer len = Memory.appendString(client.getDbIndex(),keySds,valueSds);
+        return this.renderUseInteger(len);
     }
 
     @Override

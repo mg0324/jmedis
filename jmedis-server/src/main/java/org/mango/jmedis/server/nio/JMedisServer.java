@@ -8,6 +8,9 @@ import org.mango.jmedis.ehandler.CommandRequestHandler;
 import org.mango.jmedis.ehandler.CommandResponseHandler;
 import org.mango.jmedis.ehandler.EventHandler;
 import org.mango.jmedis.server.IServer;
+import org.mango.jmedis.task.ExpireTask;
+import org.mango.jmedis.util.ScheduledUtil;
+import org.mango.jmedis.util.ServerUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.IOException;
@@ -33,8 +36,6 @@ public class JMedisServer implements IServer {
     private ServerSocketChannel server;
     // 事件处理器注册map
     private Map<String, EventHandler> eventHandlerMap;
-    // 客户端map
-    private Map<String, JMedisClient> clientMap;
 
     public JMedisServer(String conf){
         // 加载配置文件
@@ -49,17 +50,22 @@ public class JMedisServer implements IServer {
     private void init(int port) throws IOException {
         // 初始化端口
         this.port = port;
-        //创建选择器
+        // 创建选择器
         this.selector = Selector.open();
-        //打开监听通道
+        // 打开监听通道
         this.server = ServerSocketChannel.open();
         // 注册事件处理器
         this.eventHandlerMap = new HashMap<>();
         eventHandlerMap.put(JMedisConstant.EVENT_ACCEPT,new AcceptEventHandler());
         eventHandlerMap.put(JMedisConstant.EVENT_COMMAND_REQUEST,new CommandRequestHandler());
         eventHandlerMap.put(JMedisConstant.EVENT_COMMAND_RESPONSE,new CommandResponseHandler());
-        // 创建clientMap
-        this.clientMap = new HashMap<>();
+        // 开启定时任务
+        this.startTask();
+    }
+
+    private void startTask() {
+        // 检查key过期任务，每5秒执行一次
+        ScheduledUtil.start(new ExpireTask(),5l);
     }
 
     @Override
@@ -122,7 +128,7 @@ public class JMedisServer implements IServer {
             } else if (key.isReadable()) {
                 SocketChannel socketChannel = (SocketChannel) key.channel();
                 String clientKey = socketChannel.getRemoteAddress().toString();
-                JMedisClient client = clientMap.get(clientKey);
+                JMedisClient client = ServerUtil.clientMap.get(clientKey);
                 eventHandlerMap.get(JMedisConstant.EVENT_COMMAND_REQUEST).handle(this, client);
             }
         }catch (Throwable e){
@@ -137,12 +143,12 @@ public class JMedisServer implements IServer {
     @Override
     public void addClient( JMedisClient client) throws IOException {
         String key = client.getConn().getRemoteAddress().toString();
-        clientMap.put(key,client);
+        ServerUtil.clientMap.put(key,client);
     }
 
     @Override
     public JMedisClient getClient(String key) {
-        return clientMap.get(key);
+        return ServerUtil.clientMap.get(key);
     }
 
     @Override

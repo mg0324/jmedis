@@ -1,5 +1,7 @@
 package org.mango.jmedis.response;
 
+import org.mango.jmedis.constant.JMedisConstant;
+
 /**
  * @Description 基础响应格式化器
  * @Date 2021-10-23 11:31
@@ -12,6 +14,6 @@ public abstract class BaseResponseFormatter implements IResponseFormatter {
      * @return
      */
     protected String renderSimple(CmdResponse cmdResponse) {
-        return "("+cmdResponse.getType()+") " + cmdResponse.getResult().toString();
+        return "("+cmdResponse.getType()+") " + cmdResponse.getResult().toString() + JMedisConstant.BR;
     }
 }

@@ -1,5 +1,6 @@
 package org.mango.jmedis;
 
+import org.mango.jmedis.config.ServerConf;
 import org.mango.jmedis.server.IServer;
 import org.mango.jmedis.server.nio.JMedisServer;
 
@@ -12,6 +13,6 @@ public class StartupApplication {
         }
         IServer server = new JMedisServer(conf);
         //IServer server = new NettyServer();
-        server.start(8000);
+        server.start(ServerConf.getConf().getPort());
     }
 }

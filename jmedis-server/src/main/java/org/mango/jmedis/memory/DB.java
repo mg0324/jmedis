@@ -1,11 +1,8 @@
 package org.mango.jmedis.memory;
 
-import org.mango.jmedis.datatype.IType;
+import org.mango.jmedis.memory.local.IType;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @Description 数据库内存
@@ -44,5 +41,33 @@ public class DB {
      */
     public Set<String> keys() {
         return dbMap.keySet();
+    }
+    /**
+     * 获取数据库的有过期时间的keys
+     * @return
+     */
+    public Set<String> hasExpireKeys() {
+        Set<String> keys = new HashSet<>();
+        dbMap.keySet().parallelStream().forEach(e->{
+            if(Objects.nonNull(dbMap.get(e).getExpireTime())){
+                keys.add(e);
+            }
+        });
+        return keys;
+    }
+
+    /**
+     * 清除map
+     */
+    public void clear() {
+        dbMap.clear();
+    }
+
+    /**
+     * 删除key
+     * @param key key
+     */
+    public void remove(String key) {
+        dbMap.remove(key);
     }
 }

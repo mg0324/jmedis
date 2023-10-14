@@ -2,6 +2,8 @@ package org.mango.jmedis.command;
 
 import org.mango.jmedis.annotation.Cmd;
 import org.mango.jmedis.client.JMedisClient;
+import org.mango.jmedis.command.after.AfterHandler;
+import org.mango.jmedis.command.after.impl.ExpireAfterHandler;
 import org.mango.jmedis.command.validator.CmdValidator;
 import org.mango.jmedis.command.validator.impl.AuthValidator;
 import org.mango.jmedis.command.validator.impl.NotEmptyValidator;
@@ -10,6 +12,7 @@ import org.mango.jmedis.constant.JMedisConstant;
 import org.mango.jmedis.enums.ErrorEnum;
 import org.mango.jmedis.response.CmdResponse;
 import org.mango.jmedis.util.ClassUtil;
+import org.mango.jmedis.util.ExecutorUtil;
 import org.mango.jmedis.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +30,8 @@ public class CmdExecutor {
     private Map<String, ICmd> cmdMap;
     // 命令校验器
     private CmdValidator cmdValidator;
+    // 后置处理器
+    private AfterHandler afterHandler;
 
 
     public CmdExecutor(){
@@ -36,6 +41,7 @@ public class CmdExecutor {
         // 初始化命令校验器
         this.initCmdValidator();
     }
+
     // 初始化命令校验器
     private void initCmdValidator() {
         // 1.校验非空命令
@@ -91,7 +97,25 @@ public class CmdExecutor {
             return response;
         }
         // 分发命令并得到结果
-        return parseCmd(command).dispatch(client, oneStartArr(command));
+        String[] param = oneStartArr(command);
+        ICmd cmd = parseCmd(command);
+        CmdResponse result = cmd.dispatch(client,param);
+        // 设置并执行后置处理器
+        this.setAndExecuteAfterHandler(cmd,client,param);
+        return result;
+    }
+
+    /**
+     * 设置并执行后置处理器
+     * @param cmd 命令
+     * @param client 客户端
+     * @param param 参数
+     */
+    private void setAndExecuteAfterHandler(ICmd cmd, JMedisClient client, String[] param) {
+        // 初始化后置处理器
+        afterHandler = new ExpireAfterHandler(cmd,client,param);
+        // 后置处理器执行,交由线程池异步执行
+        ExecutorUtil.execute(afterHandler);
     }
 
     /**
@@ -128,7 +152,7 @@ public class CmdExecutor {
         response.setType(JMedisConstant.RESPONSE_ERROR);
         String msg = ErrorEnum.UNKNOWN_CMD.getMsg()
                 + " `"+cmd+"`";
-        response.setResult(StringUtil.wrapBr(msg));
+        response.setResult(msg);
         return response;
     }
 
@@ -139,7 +163,7 @@ public class CmdExecutor {
     public CmdResponse<String> returnError(String msg){
         CmdResponse<String> response = new CmdResponse<>();
         response.setType(JMedisConstant.RESPONSE_ERROR);
-        response.setResult(StringUtil.wrapBr(msg));
+        response.setResult(msg);
         return response;
     }
 }

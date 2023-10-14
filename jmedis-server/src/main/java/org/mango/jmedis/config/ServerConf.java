@@ -37,6 +37,18 @@ public class ServerConf {
     }
 
     /**
+     * 版本
+     */
+    public final String VERSION = "1.0.0";
+    /**
+     * 配置文件
+     */
+    public String CONFIG_FILE;
+    /**
+     * 端口
+     */
+    private Integer port = 8000;
+    /**
      * 默认数据库大小
      */
     private Integer dbSize = 16;
@@ -48,6 +60,50 @@ public class ServerConf {
      * 数据库密码，默认为空
      */
     private String authPasswd = "";
+    /**
+     * 定时任务线程数，默认核数+1
+     */
+    private Integer scheduledThreadNum = Runtime.getRuntime().availableProcessors() + 1;
+    /**
+     * 线程任务线程数，默认核数+1
+     */
+    private Integer threadNum = Runtime.getRuntime().availableProcessors() + 1;
+    /**
+     * 处理过期的key的大小，默认15
+     */
+    private Integer handleExpireSize = 15;
+
+    public Integer getHandleExpireSize() {
+        return handleExpireSize;
+    }
+
+    public void setHandleExpireSize(Integer handleExpireSize) {
+        this.handleExpireSize = handleExpireSize;
+    }
+
+    public Integer getThreadNum() {
+        return threadNum;
+    }
+
+    public void setThreadNum(Integer threadNum) {
+        this.threadNum = threadNum;
+    }
+
+    public Integer getScheduledThreadNum() {
+        return scheduledThreadNum;
+    }
+
+    public void setScheduledThreadNum(Integer scheduledThreadNum) {
+        this.scheduledThreadNum = scheduledThreadNum;
+    }
+
+    public Integer getPort() {
+        return port;
+    }
+
+    public void setPort(Integer port) {
+        this.port = port;
+    }
 
     public Integer getDbSize() {
         return dbSize;
@@ -81,6 +137,7 @@ public class ServerConf {
             if (StringUtil.isNotBlank(conf)) {
                 File confFile = new File(conf);
                 if (confFile.exists() && confFile.isFile()) {
+                    ServerConf.getConf().CONFIG_FILE = conf;
                     // 类型映射
                     Map<String,Class> typeMap = new HashMap<>();
                     typeMap.put("int",Integer.class);
