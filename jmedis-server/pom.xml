@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.mango</groupId>
     <artifactId>jmedis</artifactId>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
   </parent>
   <groupId>org.mango</groupId>
   <artifactId>jmedis-server</artifactId>

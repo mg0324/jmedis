@@ -21,7 +21,7 @@ public class ClientConf {
     /**
      * 默认端口
      */
-    public static final int DEFAULT_PORT = 8000;
+    public static final int DEFAULT_PORT = 6000;
     /**
      * 缓存大小
      */
